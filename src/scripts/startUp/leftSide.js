@@ -1,4 +1,5 @@
 import { createDifficultyPage } from '../pages/difficulty';
+
 const createLeftSide = () => {
   let mainContainer = document.createElement('aside');
   let gameTitle = document.createElement('h1');

@@ -1,5 +1,5 @@
-import { createLeftSide } from './leftSide';
-import { createMovingBackground } from './rightSide';
+import { createLeftSide } from './leftSide.js';
+import { createMovingBackground } from './rightSide.js';
 const createStartUpPage = () => {
   let mainContainer = document.createElement('main');
 

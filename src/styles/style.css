@@ -38,7 +38,7 @@ main{
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
-  padding-top: 20rem;
+  /* padding-top: 20rem; */
   flex: 1;
   
 }
@@ -49,6 +49,7 @@ main{
 aside  h1{
 font-size: 5rem;
 margin: -1rem 0 6rem 0;
+padding-top: 4rem;
 
 }
 .difficulty-aside,
@@ -56,6 +57,7 @@ margin: -1rem 0 6rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+ 
 }
 .difficulty-aside button,
 .startup-aside-left button{
@@ -74,7 +76,7 @@ margin: -1rem 0 6rem 0;
 .startup-aside-left button:nth-child(2){
   background-color: var(--green-color);
 }
-.difficulty-aside button:nth-child(3),
+.difficulty-aside button:nth-child(4),
 .startup-aside-left button:nth-child(3){
   background-color: var(--light-red-color);
 }
@@ -82,7 +84,7 @@ margin: -1rem 0 6rem 0;
 .startup-aside-left button:nth-child(2):hover{
   background-color: var(--green-hover-color);
 }
-.difficulty-aside button:nth-child(3):hover,
+.difficulty-aside button:nth-child(4):hover,
 .startup-aside-left button:nth-child(3):hover {
   background-color: var(--light-red-hover-color)
 }
@@ -91,12 +93,19 @@ margin: -1rem 0 6rem 0;
 .difficulty-aside p{
   font-size: 32px;
   text-align: center;
+  padding: 1rem;
 }
 .difficulty-aside button:nth-child(2){
   background-color: lightblue;
 }
 .difficulty-aside button:nth-child(2):hover{
 background-color: var(--light-blue-color);
+}
+.difficulty-aside img{
+  width: 5rem;
+  align-self: flex-start;
+  justify-self: start;
+  margin-top: 1rem;
 }
 /***************************  End of Difficulty Page  ***********************************/
 /***************************  Start of Background Image  ***********************************/
