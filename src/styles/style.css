@@ -109,8 +109,23 @@ background-color: var(--light-blue-color);
 }
 /***************************  End of Difficulty Page  ***********************************/
 /***************************  Start of Ship Selection Page  ***********************************/
+.select-aside{
+  padding: 1rem;
+}
 .select-aside > img{
   width: 5rem;
+}
+.select-aside h1{
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.color-section p {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.color-section div{
+  display: flex;
+  gap: 2rem;
 }
 /***************************  End of Ship Selection Page  ***********************************/
 /***************************  Start of Ship Grid  ***********************************/
@@ -118,6 +133,7 @@ background-color: var(--light-blue-color);
   display: grid;
   grid-template-columns: repeat(2,1fr);
 }
+
 /***************************  End of Ship Grid  ***********************************/
 /***************************  Start of Ship Card  ***********************************/
 .ship-info > p {
