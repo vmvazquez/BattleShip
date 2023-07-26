@@ -108,6 +108,34 @@ background-color: var(--light-blue-color);
   margin-top: 1rem;
 }
 /***************************  End of Difficulty Page  ***********************************/
+/***************************  Start of Ship Selection Page  ***********************************/
+.select-aside > img{
+  width: 5rem;
+}
+/***************************  End of Ship Selection Page  ***********************************/
+/***************************  Start of Ship Grid  ***********************************/
+.ship-grid{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+/***************************  End of Ship Grid  ***********************************/
+/***************************  Start of Ship Card  ***********************************/
+.ship-info > p {
+  font-size: 3rem;
+}
+.ship-card .health-bar img{
+  width: 1.5rem;
+}
+.ship-card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ship-card > div{
+  align-self: flex-start;
+}
+/***************************  End of Ship Card  ***********************************/
 /***************************  Start of Background Image  ***********************************/
 .background-box{
   width: 90%;

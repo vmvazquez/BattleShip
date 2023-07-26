@@ -1,5 +1,7 @@
 import backArrow from '../../res/icons/back-arrow.png';
 import { createLeftSide } from '../startUp/leftSide';
+import { backArrowEvent } from '../eventMethods/backArrow';
+import { createShipPage } from './selectShips';
 const createDifficultyPage = () => {
   let mainContainer = document.createElement('aside');
   let pageTitle = document.createElement('h1');
@@ -16,7 +18,9 @@ const createDifficultyPage = () => {
   normalButton.innerText = 'Normal';
   challengeButton.innerText = 'Challenge';
 
-  arrow.addEventListener('click', backArrowEvent);
+  arrow.addEventListener('click', (e) => {
+    backArrowEvent(e, createLeftSide);
+  });
   mainContainer.append(
     arrow,
     pageTitle,
@@ -24,15 +28,12 @@ const createDifficultyPage = () => {
     challengeButton,
     diffDesc
   );
+
+  normalButton.addEventListener('click', (e) => {
+    backArrowEvent(e, createShipPage);
+  });
   mainContainer.classList.add('difficulty-aside');
   return mainContainer;
 };
 
-const backArrowEvent = () => {
-  let diffContent = document.querySelector('.difficulty-aside');
-
-  let parent = diffContent.parentElement;
-
-  parent.replaceChild(createLeftSide(), diffContent);
-};
 export { createDifficultyPage };
