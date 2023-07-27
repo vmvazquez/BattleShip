@@ -1,19 +1,26 @@
-import { draggedObject } from './mainGrid';
-const createShipImage = (shipImgSrc) => {
+import { createDraggedObject } from '../objects/draggedObject';
+import { currentHoveredCell } from './mainGrid';
+let draggedObject;
+const createShipImage = (health, shipImgSrc) => {
   let boatImage = document.createElement('img');
   boatImage.src = shipImgSrc;
   boatImage.draggable = 'true';
+  boatImage.style.setProperty('width', `${getCellWidth() * health}px`);
+  console.log(getCellWidth() * health);
   boatImage.addEventListener('dragstart', (e) => {
-    console.log(e.clientX);
+    let imageOnGrid = findImage(shipImgSrc);
+
+    draggedObject = createDraggedObject(imageOnGrid.parentElement);
     boatImage.classList.add('dragging');
   });
+  boatImage.addEventListener('drag', (e) => {
+    // console.log(currentHoveredCell);
+  });
   boatImage.addEventListener('dragend', () => {
-    console.log(draggedObject);
-    // console.log('dragend');
     boatImage.classList.remove('dragging');
     let hoveredCell = document.querySelector('.hovered-cell');
     if (hoveredCell) {
-      drawImageOnBoard(boatImage);
+      drawImageOnBoard(health, boatImage);
       if (boatImage.parentElement.matches('.grid-container')) {
         boatImage.parentElement.removeChild(boatImage);
       }
@@ -23,27 +30,55 @@ const createShipImage = (shipImgSrc) => {
 
   return boatImage;
 };
-const drawImageOnBoard = (imageSrc) => {
+const findImage = (imageSrc) => {
+  let cards = Array.from(document.querySelectorAll('.ship-card'));
+
+  let trueImageSrc = imageSrc;
+  if (typeof imageSrc == 'object') {
+    trueImageSrc = imageSrc.src;
+  }
+
+  let image;
+  cards.forEach((card) => {
+    if (card.firstChild.nextSibling.src == trueImageSrc) {
+      image = card.firstChild.nextSibling;
+    }
+  });
+  return image;
+};
+const drawImageOnBoard = (health, imageElement) => {
   let gridContainer = document.querySelector('.grid-container');
 
-  let newImage = createShipImage(imageSrc);
-  newImage.src = imageSrc.src;
+  let newImage = createShipImage(health, imageElement);
+  console.log('New Image');
+  console.log(newImage);
+  newImage.src = imageElement.src;
 
   let hoveredCell = document.querySelector('.hovered-cell');
 
-  console.log('image Source');
-  console.log(imageSrc.getBoundingClientRect());
   let parent = hoveredCell.parentElement;
   let newLeft =
-    hoveredCell.getBoundingClientRect().left -
+    hoveredCell.getBoundingClientRect().right -
     parent.getBoundingClientRect().left -
-    imageSrc.getBoundingClientRect().width / 2;
+    imageElement.getBoundingClientRect().width;
   let newTop =
     hoveredCell.getBoundingClientRect().top -
     parent.getBoundingClientRect().top;
 
   newImage.style.setProperty('left', `${newLeft}px`);
   newImage.style.setProperty('top', `${newTop}px`);
+
+  let newImageHeight = imageElement.getBoundingClientRect().height;
+  let cellHeight = hoveredCell.getBoundingClientRect().height;
+  console.log(newImage.getBoundingClientRect());
+  if (newImageHeight < cellHeight * 0.9) {
+    newImage.style.setProperty('top', `${newTop + cellHeight * 0.2}px`);
+  }
+
   gridContainer.append(newImage);
 };
-export { createShipImage };
+const getCellWidth = () => {
+  let gridContainer = document.querySelector('.main-grid').firstChild;
+  return gridContainer.getBoundingClientRect().width;
+};
+export { createShipImage, draggedObject };

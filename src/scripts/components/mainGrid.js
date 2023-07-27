@@ -1,4 +1,6 @@
-let draggedObject;
+import { draggedObject } from './shipImage';
+
+let currentHoveredCell = 0;
 const createGrid = () => {
   let mainContainer = document.createElement('div');
   let backgroundGrid = document.createElement('div');
@@ -9,7 +11,12 @@ const createGrid = () => {
   for (let i = 0; i < 100; i++) {
     let cell = document.createElement('div');
 
+    let p = document.createElement('p');
+    p.innerText = i + 1;
+    cell.append(p);
     cell.addEventListener('dragenter', (e) => {
+      console.log(draggedObject);
+      currentHoveredCell = e.target.firstChild.innerText;
       let previouslyHoveredCell = document.querySelectorAll('.hovered-cell');
 
       if (previouslyHoveredCell) {
@@ -28,20 +35,19 @@ const createGrid = () => {
       cell.classList.add('hovered-cell');
       cell.previousSibling.classList.add('overlap-cell');
       cell.previousSibling.previousSibling.classList.add('overlap-cell');
-
-      // let cellXMid =
-      //   cell.getBoundingClientRect().x + cell.getBoundingClientRect().width / 2;
-      // let cellYMid =
-      //   cell.getBoundingClientRect().y +
-      //   cell.getBoundingClientRect().height / 2;
-      // console.log(cellXMid);
-      // console.log(cellYMid);
     });
 
     mainContainer.append(cell);
   }
   backgroundGrid.append(mainContainer);
+
   return mainContainer;
 };
 
-export { createGrid, draggedObject };
+/**
+ *
+ * @param {Element} eventTarget  The cell that the mouse is currently over while
+ * dragging a ship
+ */
+const drawShipPlacement = (eventTarget) => {};
+export { createGrid, currentHoveredCell };

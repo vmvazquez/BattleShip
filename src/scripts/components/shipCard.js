@@ -11,7 +11,7 @@ import { createShipImage } from './shipImage';
 const createShipCard = (healthCount, shipImgSrc, desc) => {
   let mainContainer = document.createElement('div');
   let healthBarContainer = createHealthContainer(healthCount);
-  let boatImage = createShipImage(shipImgSrc);
+  let boatImage = createShipImage(healthCount, shipImgSrc);
   let description = document.createElement('p');
 
   description.innerText = desc;
