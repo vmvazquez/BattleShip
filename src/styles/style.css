@@ -28,7 +28,7 @@ body{
   height: 100vh;
   background-color: var(--main-background-color);
   font-family: primer;
-  
+ 
  
 }
 
@@ -111,9 +111,14 @@ background-color: var(--light-blue-color);
 /***************************  Start of Ship Selection Page  ***********************************/
 .select-aside{
   padding: 1rem;
+  overflow: visible;
+  
 }
 .select-aside > img{
   width: 5rem;
+  position: sticky;
+  
+  height: auto;
 }
 .select-aside h1{
   margin-bottom: 2rem;
@@ -151,7 +156,56 @@ background-color: var(--light-blue-color);
 .ship-card > div{
   align-self: flex-start;
 }
+.ship-card > p{
+  font-size: 2rem;
+  margin-bottom: 0;
+  margin-top: .5rem;
+}
+.health-bar{
+  display: flex;
+  gap: .25rem;
+}
+.draggable{
+  cursor: move;
+}
+.draggable.dragging{
+  opacity: .5;
+}
 /***************************  End of Ship Card  ***********************************/
+/***************************  Start of Main Grid  ***********************************/
+.grid-container{
+  position: relative;
+}
+.grid-container > img{
+  position: absolute;
+  /* left: 492px;
+  top: 474px; */
+}
+.main-grid {
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(10,1fr);
+  grid-template-rows: repeat(10,1fr);
+  z-index: 3;
+}
+.main-grid div{
+  border: 1px solid black;
+}
+.background-grid{
+position: absolute;
+
+height: 100%;
+width: 100%;
+top: 0;
+left: 0;
+}
+div .overlap-cell{
+  background-color: lightblue;
+}
+.hovered-cell{
+  background-color: #89d74d;
+}
+/***************************  End of Main Grid  ***********************************/
 /***************************  Start of Background Image  ***********************************/
 .background-box{
   width: 90%;

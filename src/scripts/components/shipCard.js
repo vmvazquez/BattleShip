@@ -1,4 +1,5 @@
 import heart from '../../res/icons/heart.png';
+import { createShipImage } from './shipImage';
 
 /**
  *
@@ -10,10 +11,9 @@ import heart from '../../res/icons/heart.png';
 const createShipCard = (healthCount, shipImgSrc, desc) => {
   let mainContainer = document.createElement('div');
   let healthBarContainer = createHealthContainer(healthCount);
-  let boatImage = document.createElement('img');
+  let boatImage = createShipImage(shipImgSrc);
   let description = document.createElement('p');
 
-  boatImage.src = shipImgSrc;
   description.innerText = desc;
   mainContainer.classList.add('ship-card');
   mainContainer.append(healthBarContainer, boatImage, description);
