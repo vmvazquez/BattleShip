@@ -205,6 +205,9 @@ div .overlap-cell{
 .hovered-cell{
   background-color: #89d74d;
 }
+.invalid-cell{
+  background-color: rgb(241, 38, 38);
+}
 /***************************  End of Main Grid  ***********************************/
 /***************************  Start of Background Image  ***********************************/
 .background-box{

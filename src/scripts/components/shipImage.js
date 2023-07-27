@@ -81,4 +81,4 @@ const getCellWidth = () => {
   let gridContainer = document.querySelector('.main-grid').firstChild;
   return gridContainer.getBoundingClientRect().width;
 };
-export { createShipImage, draggedObject };
+export { createShipImage, draggedObject, getCellWidth };
