@@ -13,9 +13,12 @@ const createShipImage = (health, shipImgSrc) => {
 
     draggedObject = createDraggedObject(imageOnGrid.parentElement);
     boatImage.classList.add('dragging');
+    if (e.target.parentElement.matches('.grid-container')) {
+      e.target.classList.add('hide');
+    }
   });
-  boatImage.addEventListener('drag', (e) => {});
-  boatImage.addEventListener('dragend', () => {
+
+  boatImage.addEventListener('dragend', (e) => {
     boatImage.classList.remove('dragging');
     let hoveredCell = document.querySelector('.hovered-cell');
     if (hoveredCell) {
@@ -27,13 +30,12 @@ const createShipImage = (health, shipImgSrc) => {
             cell.classList.remove('taken');
           });
         }
+        let linkedCells = getAllLinkedCells().map((cell) => {
+          cell.classList.add('taken');
+          return cell;
+        });
+        gameBoardManager.map.set(boatImage.src, linkedCells);
       }
-
-      let linkedCells = getAllLinkedCells().map((cell) => {
-        cell.classList.add('taken');
-        return cell;
-      });
-      gameBoardManager.map.set(boatImage.src, linkedCells);
     }
   });
   boatImage.classList.add('draggable');
@@ -61,6 +63,16 @@ const findImage = (imageSrc) => {
     }
   });
   return image;
+};
+const createBlankImage = () => {
+  let span = document.createElement('span');
+  span.classList.add('blank');
+  document.body.append(span);
+  return span;
+};
+const removeBlankImage = () => {
+  let img = document.querySelector('.blank');
+  img.parentElement.removeChild(img);
 };
 
 /**

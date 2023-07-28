@@ -170,6 +170,12 @@ background-color: var(--light-blue-color);
 }
 .draggable.dragging{
   opacity: .5;
+
+}
+.hide{
+  position: absolute;
+    transition: 0.01s;
+      transform: translateX(-9999px);
 }
 /***************************  End of Ship Card  ***********************************/
 /***************************  Start of Main Grid  ***********************************/
