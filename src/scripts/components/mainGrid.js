@@ -43,46 +43,16 @@ const removeClass = (className) => {
  * dragging a ship
  */
 const drawShipPlacementPreview = (eventTarget) => {
-  // let previouslyHoveredCell = document.querySelectorAll('.hovered-cell');
-
-  // if (previouslyHoveredCell) {
-  //   Array.from(previouslyHoveredCell).forEach((cell) => {
-  //     cell.classList.remove('hovered-cell');
-  //   });
-  // }
-
-  // let previousOverlap = document.querySelectorAll('.overlap-cell');
-  // if (previousOverlap) {
-  //   Array.from(previousOverlap).forEach((cell) => {
-  //     cell.classList.remove('overlap-cell');
-  //   });
-  // }
-  // let invalid = document.querySelectorAll('.invalid-cell');
-  // if (invalid) {
-  //   Array.from(invalid).forEach((cell) => {
-  //     cell.classList.remove('invalid-cell');
-  //   });
-  // }
+  // Clearing cells that were previously hovered
   removeClass('hovered-cell');
   removeClass('overlap-cell');
   removeClass('invalid-cell');
   removeClass('starting-cell');
-  // let previouslyStartingCell = document.querySelectorAll('.starting-cell');
 
-  // if (previouslyStartingCell) {
-  //   Array.from(previouslyStartingCell).forEach((cell) => {
-  //     cell.classList.remove('starting-cell');
-  //   });
-  // }
+  // Handling classes for newly hovered elements
   eventTarget.classList.add('starting-cell');
   //TODO this will only work if placing right to left
   let rightToLeft = true;
-  let currentCell = eventTarget;
-  console.log('current cell');
-  console.log(currentCell);
-
-  let startingX = eventTarget.getBoundingClientRect().left;
-  let nextCellX = startingX;
 
   let cellArray = [];
 
@@ -102,27 +72,25 @@ const drawShipPlacementPreview = (eventTarget) => {
       cell.classList.add('invalid-cell');
     }
   });
-  // cell.classList.add('hovered-cell');
-  // cell.previousSibling.classList.add('overlap-cell');
-  // cell.previousSibling.previousSibling.classList.add('overlap-cell');
 };
 const getAllLinkedCells = () => {
+  console.log('dragged object');
+  console.log(draggedObject.img);
   let cellArray = [];
   let currentCell = document.querySelector('.starting-cell');
 
-  console.log('this is current cell');
-  console.log(currentCell);
   let startingX = currentCell.getBoundingClientRect().left;
   let nextCellX = startingX;
 
   // TODO BUG: currentCell.previousSibling != null
   // doesnt highlight the first div in the grid as red
   // since it doesnt have a previous element
+
   for (
     let i = 0;
     i < draggedObject.health &&
     nextCellX <= startingX &&
-    !currentCell.matches('.taken') &&
+    isValidCell(currentCell) &&
     currentCell.previousSibling != null;
     i++
   ) {
@@ -131,5 +99,16 @@ const getAllLinkedCells = () => {
     nextCellX = currentCell.getBoundingClientRect().left;
   }
   return cellArray;
+};
+const isValidCell = (cell) => {
+  if (cell.matches('.taken')) {
+    if (gameBoardManager.map.has(draggedObject.img.src)) {
+      let arr = gameBoardManager.map.get(draggedObject.img.src);
+      return arr.includes(cell);
+    }
+
+    return false;
+  }
+  return true;
 };
 export { createGrid, currentHoveredCell, getAllLinkedCells };

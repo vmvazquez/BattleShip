@@ -7,22 +7,18 @@ const createShipImage = (health, shipImgSrc) => {
   boatImage.src = shipImgSrc;
   boatImage.draggable = 'true';
   boatImage.style.setProperty('width', `${getCellWidth() * health}px`);
-  console.log(getCellWidth() * health);
+
   boatImage.addEventListener('dragstart', (e) => {
     let imageOnGrid = findImage(shipImgSrc);
 
     draggedObject = createDraggedObject(imageOnGrid.parentElement);
     boatImage.classList.add('dragging');
   });
-  boatImage.addEventListener('drag', (e) => {
-    // console.log(currentHoveredCell);
-  });
+  boatImage.addEventListener('drag', (e) => {});
   boatImage.addEventListener('dragend', () => {
     boatImage.classList.remove('dragging');
     let hoveredCell = document.querySelector('.hovered-cell');
     if (hoveredCell) {
-      console.log('Images in map');
-      console.log(gameBoardManager.map.get(boatImage.src));
       drawImageOnBoard(health, boatImage);
       if (boatImage.parentElement.matches('.grid-container')) {
         boatImage.parentElement.removeChild(boatImage);
@@ -44,6 +40,12 @@ const createShipImage = (health, shipImgSrc) => {
 
   return boatImage;
 };
+
+/**
+ * Links an image element from the .ship-grid container from any ship image source.
+ * @param {Element| String} imageSrc Either an img element or img string
+ * @returns {Element} it returns the image Element of the image from.ship-grid
+ */
 const findImage = (imageSrc) => {
   let cards = Array.from(document.querySelectorAll('.ship-card'));
 
@@ -70,8 +72,7 @@ const drawImageOnBoard = (health, imageElement) => {
   let gridContainer = document.querySelector('.grid-container');
 
   let newImage = createShipImage(health, imageElement);
-  console.log('New Image');
-  console.log(newImage);
+
   newImage.src = imageElement.src;
 
   let hoveredCell = document.querySelector('.hovered-cell');
@@ -88,16 +89,11 @@ const drawImageOnBoard = (health, imageElement) => {
   newImage.style.setProperty('left', `${newLeft}px`);
   newImage.style.setProperty('top', `${newTop}px`);
 
-  console.log('this is image elemendt');
-
   let newImageHeight = imageElement.getBoundingClientRect().height;
-  console.log(newImageHeight);
 
   let cellHeight = hoveredCell.getBoundingClientRect().height;
-  console.log(cellHeight * 0.9);
-  console.log(newImage.getBoundingClientRect());
+
   if (newImageHeight < cellHeight * 0.9) {
-    console.log('in here');
     newImage.style.setProperty('top', `${newTop + cellHeight * 0.2}px`);
   }
 
