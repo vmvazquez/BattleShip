@@ -1,4 +1,6 @@
+import { gameBoardManager } from '../objects/gameBoardManager';
 import { draggedObject, getCellWidth } from './shipImage';
+gameBoardManager;
 let currentHoveredCell = 0;
 const createGrid = () => {
   let mainContainer = document.createElement('div');
@@ -10,9 +12,6 @@ const createGrid = () => {
   for (let i = 0; i < 100; i++) {
     let cell = document.createElement('div');
 
-    // let p = document.createElement('p');
-    // p.innerText = i + 1;
-    // cell.append(p);
     cell.addEventListener('dragenter', (e) => {
       drawShipPlacementPreview(e.target);
     });
@@ -25,38 +24,56 @@ const createGrid = () => {
 };
 
 /**
+ * Will look for elements that contain a class of className and remove that class
+ * from it element.
+ * @param {String} className Class we want to remove from elements
+ */
+const removeClass = (className) => {
+  let containerArray = document.querySelectorAll(`.${className}`);
+
+  if (containerArray) {
+    Array.from(containerArray).forEach((element) => {
+      element.classList.remove(className);
+    });
+  }
+};
+/**
  *
  * @param {Element} eventTarget  The cell that the mouse is currently over while
  * dragging a ship
  */
 const drawShipPlacementPreview = (eventTarget) => {
-  let previouslyHoveredCell = document.querySelectorAll('.hovered-cell');
+  // let previouslyHoveredCell = document.querySelectorAll('.hovered-cell');
 
-  if (previouslyHoveredCell) {
-    Array.from(previouslyHoveredCell).forEach((cell) => {
-      cell.classList.remove('hovered-cell');
-    });
-  }
+  // if (previouslyHoveredCell) {
+  //   Array.from(previouslyHoveredCell).forEach((cell) => {
+  //     cell.classList.remove('hovered-cell');
+  //   });
+  // }
 
-  let previousOverlap = document.querySelectorAll('.overlap-cell');
-  if (previousOverlap) {
-    Array.from(previousOverlap).forEach((cell) => {
-      cell.classList.remove('overlap-cell');
-    });
-  }
-  let invalid = document.querySelectorAll('.invalid-cell');
-  if (invalid) {
-    Array.from(invalid).forEach((cell) => {
-      cell.classList.remove('invalid-cell');
-    });
-  }
-  let previouslyStartingCell = document.querySelectorAll('.starting-cell');
+  // let previousOverlap = document.querySelectorAll('.overlap-cell');
+  // if (previousOverlap) {
+  //   Array.from(previousOverlap).forEach((cell) => {
+  //     cell.classList.remove('overlap-cell');
+  //   });
+  // }
+  // let invalid = document.querySelectorAll('.invalid-cell');
+  // if (invalid) {
+  //   Array.from(invalid).forEach((cell) => {
+  //     cell.classList.remove('invalid-cell');
+  //   });
+  // }
+  removeClass('hovered-cell');
+  removeClass('overlap-cell');
+  removeClass('invalid-cell');
+  removeClass('starting-cell');
+  // let previouslyStartingCell = document.querySelectorAll('.starting-cell');
 
-  if (previouslyStartingCell) {
-    Array.from(previouslyStartingCell).forEach((cell) => {
-      cell.classList.remove('starting-cell');
-    });
-  }
+  // if (previouslyStartingCell) {
+  //   Array.from(previouslyStartingCell).forEach((cell) => {
+  //     cell.classList.remove('starting-cell');
+  //   });
+  // }
   eventTarget.classList.add('starting-cell');
   //TODO this will only work if placing right to left
   let rightToLeft = true;
@@ -71,12 +88,6 @@ const drawShipPlacementPreview = (eventTarget) => {
 
   if (rightToLeft) {
     cellArray = getAllLinkedCells();
-    // let loopControl = nextCellX <= startingX && !currentCell.matches('.taken');
-    // for (let i = 0; i < draggedObject.health && loopControl; i++) {
-    //   cellArray.push(currentCell);
-    //   currentCell = currentCell.previousSibling;
-    //   nextCellX = currentCell.getBoundingClientRect().left;
-    // }
   }
 
   // We have all the cells we need to highlight
@@ -121,4 +132,4 @@ const getAllLinkedCells = () => {
   }
   return cellArray;
 };
-export { createGrid, currentHoveredCell };
+export { createGrid, currentHoveredCell, getAllLinkedCells };

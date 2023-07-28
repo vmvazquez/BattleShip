@@ -1,5 +1,6 @@
 import { createDraggedObject } from '../objects/draggedObject';
-import { currentHoveredCell } from './mainGrid';
+import { gameBoardManager } from '../objects/gameBoardManager';
+import { currentHoveredCell, getAllLinkedCells } from './mainGrid';
 let draggedObject;
 const createShipImage = (health, shipImgSrc) => {
   let boatImage = document.createElement('img');
@@ -20,10 +21,23 @@ const createShipImage = (health, shipImgSrc) => {
     boatImage.classList.remove('dragging');
     let hoveredCell = document.querySelector('.hovered-cell');
     if (hoveredCell) {
+      console.log('Images in map');
+      console.log(gameBoardManager.map.get(boatImage.src));
       drawImageOnBoard(health, boatImage);
       if (boatImage.parentElement.matches('.grid-container')) {
         boatImage.parentElement.removeChild(boatImage);
+        if (gameBoardManager.map.has(boatImage.src)) {
+          gameBoardManager.map.get(boatImage.src).forEach((cell) => {
+            cell.classList.remove('taken');
+          });
+        }
       }
+
+      let linkedCells = getAllLinkedCells().map((cell) => {
+        cell.classList.add('taken');
+        return cell;
+      });
+      gameBoardManager.map.set(boatImage.src, linkedCells);
     }
   });
   boatImage.classList.add('draggable');
@@ -46,6 +60,12 @@ const findImage = (imageSrc) => {
   });
   return image;
 };
+
+/**
+ *
+ * @param {Integer} health The amount of hit grid boxes an image will take up
+ * @param {Element} imageElement The img element container
+ */
 const drawImageOnBoard = (health, imageElement) => {
   let gridContainer = document.querySelector('.grid-container');
 
@@ -68,10 +88,16 @@ const drawImageOnBoard = (health, imageElement) => {
   newImage.style.setProperty('left', `${newLeft}px`);
   newImage.style.setProperty('top', `${newTop}px`);
 
+  console.log('this is image elemendt');
+
   let newImageHeight = imageElement.getBoundingClientRect().height;
+  console.log(newImageHeight);
+
   let cellHeight = hoveredCell.getBoundingClientRect().height;
+  console.log(cellHeight * 0.9);
   console.log(newImage.getBoundingClientRect());
   if (newImageHeight < cellHeight * 0.9) {
+    console.log('in here');
     newImage.style.setProperty('top', `${newTop + cellHeight * 0.2}px`);
   }
 
