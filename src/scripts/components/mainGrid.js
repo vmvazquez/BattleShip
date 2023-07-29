@@ -9,6 +9,13 @@ const createGrid = () => {
   backgroundGrid.classList.add('background-grid');
   mainContainer.classList.add('main-grid');
 
+  mainContainer.addEventListener('mouseover', (e) => {
+    console.log('mouse');
+    mainContainer.classList.add('attack');
+  });
+  mainContainer.addEventListener('mouseleave', () => {
+    mainContainer.classList.remove('attack');
+  });
   for (let i = 0; i < 100; i++) {
     let cell = document.createElement('div');
 
@@ -37,6 +44,13 @@ const removeClass = (className) => {
     });
   }
 };
+
+const clearPreviews = () => {
+  removeClass('hovered-cell');
+  removeClass('overlap-cell');
+  removeClass('invalid-cell');
+  removeClass('starting-cell');
+};
 /**
  *
  * @param {Element} eventTarget  The cell that the mouse is currently over while
@@ -44,11 +58,8 @@ const removeClass = (className) => {
  */
 const drawShipPlacementPreview = (eventTarget) => {
   // Clearing cells that were previously hovered
-  removeClass('hovered-cell');
-  removeClass('overlap-cell');
-  removeClass('invalid-cell');
-  removeClass('starting-cell');
 
+  clearPreviews();
   // Handling classes for newly hovered elements
   eventTarget.classList.add('starting-cell');
   //TODO this will only work if placing right to left
@@ -111,4 +122,4 @@ const isValidCell = (cell) => {
   }
   return true;
 };
-export { createGrid, currentHoveredCell, getAllLinkedCells };
+export { createGrid, currentHoveredCell, getAllLinkedCells, clearPreviews };

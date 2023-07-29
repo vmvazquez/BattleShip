@@ -1,6 +1,10 @@
 import { createDraggedObject } from '../objects/draggedObject';
 import { gameBoardManager } from '../objects/gameBoardManager';
-import { currentHoveredCell, getAllLinkedCells } from './mainGrid';
+import {
+  clearPreviews,
+  currentHoveredCell,
+  getAllLinkedCells,
+} from './mainGrid';
 let draggedObject;
 const createShipImage = (health, shipImgSrc) => {
   let boatImage = document.createElement('img');
@@ -13,8 +17,8 @@ const createShipImage = (health, shipImgSrc) => {
 
     draggedObject = createDraggedObject(imageOnGrid.parentElement);
     boatImage.classList.add('dragging');
-    if (e.target.parentElement.matches('.grid-container')) {
-      e.target.classList.add('hide');
+    if (boatImage.parentElement.matches('.grid-container')) {
+      boatImage.classList.add('hide');
     }
   });
 
@@ -24,19 +28,21 @@ const createShipImage = (health, shipImgSrc) => {
     if (hoveredCell) {
       drawImageOnBoard(health, boatImage);
       if (boatImage.parentElement.matches('.grid-container')) {
-        boatImage.parentElement.removeChild(boatImage);
         if (gameBoardManager.map.has(boatImage.src)) {
           gameBoardManager.map.get(boatImage.src).forEach((cell) => {
             cell.classList.remove('taken');
           });
+          boatImage.parentElement.removeChild(boatImage);
         }
-        let linkedCells = getAllLinkedCells().map((cell) => {
-          cell.classList.add('taken');
-          return cell;
-        });
-        gameBoardManager.map.set(boatImage.src, linkedCells);
       }
+      let linkedCells = getAllLinkedCells().map((cell) => {
+        cell.classList.add('taken');
+        return cell;
+      });
+      gameBoardManager.map.set(boatImage.src, linkedCells);
     }
+    boatImage.classList.remove('hide');
+    clearPreviews();
   });
   boatImage.classList.add('draggable');
 
@@ -64,19 +70,10 @@ const findImage = (imageSrc) => {
   });
   return image;
 };
-const createBlankImage = () => {
-  let span = document.createElement('span');
-  span.classList.add('blank');
-  document.body.append(span);
-  return span;
-};
-const removeBlankImage = () => {
-  let img = document.querySelector('.blank');
-  img.parentElement.removeChild(img);
-};
 
 /**
- *
+ * Instantly appends ship image to .grid-container div based on
+ * the last hovered cell
  * @param {Integer} health The amount of hit grid boxes an image will take up
  * @param {Element} imageElement The img element container
  */
@@ -115,4 +112,5 @@ const getCellWidth = () => {
   let gridContainer = document.querySelector('.main-grid').firstChild;
   return gridContainer.getBoundingClientRect().width;
 };
+
 export { createShipImage, draggedObject, getCellWidth };
