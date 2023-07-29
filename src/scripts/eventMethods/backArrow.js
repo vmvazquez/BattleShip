@@ -8,7 +8,14 @@ const backArrowEvent = (e, methodToCreateNewContent) => {
   // let diffContent = document.querySelector('.difficulty-aside');
   let diffContent = e.target.parentElement;
   let parent = diffContent.parentElement;
-
+  console.log('parent');
+  console.log(parent);
+  let leftSide = e.target.parentElement.matches('.select-aside');
+  if (leftSide) {
+    console.log('here');
+    let rightSide = document.querySelector('.right-side');
+    rightSide.removeChild(rightSide.lastChild);
+  }
   parent.replaceChild(methodToCreateNewContent(), diffContent);
 };
 

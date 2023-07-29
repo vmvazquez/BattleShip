@@ -1,10 +1,6 @@
 import { createDraggedObject } from '../objects/draggedObject';
 import { gameBoardManager } from '../objects/gameBoardManager';
-import {
-  clearPreviews,
-  currentHoveredCell,
-  getAllLinkedCells,
-} from './mainGrid';
+import { clearPreviews, getAllLinkedCells } from './mainGrid';
 let draggedObject;
 const createShipImage = (health, shipImgSrc) => {
   let boatImage = document.createElement('img');

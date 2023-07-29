@@ -1,14 +1,18 @@
 import sub from '../../res/ships/sub.png';
+import { createDifficultyButtons } from '../components/difficultyButtons';
 import { createGrid } from '../components/mainGrid';
-
 const createRightSide = () => {
-  let mainContainer = document.createElement('div');
+  let gridContainer = document.createElement('div');
+  let mainContainer = document.createElement('aside');
 
-  mainContainer.classList.add('grid-container');
+  gridContainer.classList.add('grid-container');
 
   let grid = createGrid();
 
-  mainContainer.append(grid);
+  gridContainer.append(grid);
+  mainContainer.append(gridContainer);
+
+  mainContainer.classList.add('right-side');
   return mainContainer;
 };
 

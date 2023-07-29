@@ -4,9 +4,7 @@ gameBoardManager;
 let currentHoveredCell = 0;
 const createGrid = () => {
   let mainContainer = document.createElement('div');
-  let backgroundGrid = document.createElement('div');
 
-  backgroundGrid.classList.add('background-grid');
   mainContainer.classList.add('main-grid');
 
   mainContainer.addEventListener('mouseover', (e) => {
@@ -19,13 +17,13 @@ const createGrid = () => {
   for (let i = 0; i < 100; i++) {
     let cell = document.createElement('div');
 
-    cell.addEventListener('dragenter', (e) => {
-      drawShipPlacementPreview(e.target);
-    });
+    let p = document.createElement('p');
+    p.innerText = i;
+    cell.append(p);
+    cell.addEventListener('dragenter', drawShipPlacementPreview);
 
     mainContainer.append(cell);
   }
-  backgroundGrid.append(mainContainer);
 
   return mainContainer;
 };
@@ -53,12 +51,12 @@ const clearPreviews = () => {
 };
 /**
  *
- * @param {Element} eventTarget  The cell that the mouse is currently over while
+ * @param {Element} event  The event that was triggered by the cell that the mouse is currently over while
  * dragging a ship
  */
-const drawShipPlacementPreview = (eventTarget) => {
+const drawShipPlacementPreview = (e) => {
   // Clearing cells that were previously hovered
-
+  let eventTarget = e.target;
   clearPreviews();
   // Handling classes for newly hovered elements
   eventTarget.classList.add('starting-cell');
@@ -122,4 +120,10 @@ const isValidCell = (cell) => {
   }
   return true;
 };
-export { createGrid, currentHoveredCell, getAllLinkedCells, clearPreviews };
+export {
+  createGrid,
+  currentHoveredCell,
+  getAllLinkedCells,
+  clearPreviews,
+  drawShipPlacementPreview,
+};

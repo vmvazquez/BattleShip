@@ -7,6 +7,8 @@
   --light-red-color: #FF794F;
   --light-red-hover-color: #f47650;
   --light-blue-color: rgb(179, 212, 221);
+  --field-border-radius: 50px;
+  --grid-width:80%
 }
 @font-face {
   font-family: "IM Fell En  glish SC";
@@ -24,14 +26,22 @@ body{
   margin: 0;
   display: flex;
   /* justify-content: space-around; */
-  align-items: center;
+  flex-direction: column;
+  /* align-items: center; */
   height: 100vh;
   background-color: var(--main-background-color);
   font-family: primer;
  
  
 }
-
+.turn-text{
+  text-align: center;
+  font-size: 5rem;
+  
+}
+.turn-text p{
+  margin: 0
+}
 /***************************  Start of Main Container  ***********************************/
 
 main{
@@ -59,6 +69,7 @@ padding-top: 4rem;
   align-items: center;
  
 }
+.diff-buttons button,
 .difficulty-aside button,
 .startup-aside-left button{
   font-family: primer;
@@ -107,6 +118,11 @@ background-color: var(--light-blue-color);
   justify-self: start;
   margin-top: 1rem;
 }
+.diff-buttons{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  width: var(--grid-width);
+}
 /***************************  End of Difficulty Page  ***********************************/
 /***************************  Start of Ship Selection Page  ***********************************/
 .select-aside{
@@ -133,6 +149,41 @@ background-color: var(--light-blue-color);
   gap: 2rem;
 }
 /***************************  End of Ship Selection Page  ***********************************/
+/***************************  Start of Right Side  ***********************************/
+.right-side{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 1s cubic-bezier(0.215, 0.610, 0.355, 1) ;
+  /* justify-self: center; */
+  width: 100%;
+  
+}
+.right-side p{
+  font-size: 3rem;
+  margin: 0;
+}
+.right-side:first-child{
+margin-left: 5rem;
+
+}
+/* 
+.slide-left{
+  transform: translateX(-80%);
+}
+.display-none{
+  display: none;
+}
+.grid-layout{
+  
+  grid-column: 3;
+  grid-row: 0/1;
+}
+.main-content{
+  overflow: hidden;
+} */
+/***************************  End of Right Side  ***********************************/
 /***************************  Start of Ship Grid  ***********************************/
 .ship-grid{
   display: grid;
@@ -185,11 +236,20 @@ background-color: var(--light-blue-color);
 /***************************  End of Ship Card  ***********************************/
 /***************************  Start of Main Grid  ***********************************/
 .attack{
-  /* cursor: url('../res/icons/focus.png'),auto; */
-  
+  cursor: url('../res/icons/focus.png') 64 64,pointer;
+
+}
+.cell-miss{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .grid-container{
   position: relative;
+  align-self: self-start;
+  height: var(--grid-width);
+  width: 90%;
+  border-radius: var(--field-border-radius);
 }
 .grid-container > img{
   position: absolute;
@@ -201,18 +261,24 @@ background-color: var(--light-blue-color);
   height: 100%;
   grid-template-columns: repeat(10,1fr);
   grid-template-rows: repeat(10,1fr);
-  z-index: 3;
+  background-image: url('../res/water.jpg');
+  border-radius: var(--field-border-radius);
 }
-.main-grid div{
-  border: 1px solid black;
-}
-.background-grid{
-position: absolute;
 
-height: 100%;
-width: 100%;
-top: 0;
-left: 0;
+.main-grid div{
+  border: 1px solid rgba(0, 0, 0, 0.178);
+}
+.main-grid div:nth-child(1){
+  border-top-left-radius: var(--field-border-radius);
+}
+.main-grid div:nth-child(10){
+  border-top-right-radius: var(--field-border-radius);
+}
+.main-grid div:nth-child(91){
+border-bottom-left-radius: var(--field-border-radius);
+}
+.main-grid div:nth-child(100){
+  border-bottom-right-radius: var(--field-border-radius);
 }
 /* div .overlap-cell{
   background-color: lightblue;
