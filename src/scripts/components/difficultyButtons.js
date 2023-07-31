@@ -1,3 +1,4 @@
+import { generateAIShipLocations } from '../aiLogic/generateShipPosition';
 import { nameBoards } from '../gameStart/nameBoards';
 import { removeDraggable } from '../gameStart/removeDraggable';
 import { createRightSide } from '../startUp/rightSide';
@@ -8,6 +9,20 @@ const createDifficultyButtons = () => {
   let mainContainer = document.createElement('div');
 
   autoAssignButton.innerText = 'Auto Assign';
+
+  autoAssignButton.addEventListener('click', () => {
+    let mainGrid = Array.from(document.querySelector('.main-grid').children);
+    mainGrid.forEach((cell) => {
+      cell.removeAttribute('class');
+    });
+    let finalPositions = generateAIShipLocations();
+    console.log(finalPositions);
+    finalPositions.forEach((positions, i) => {
+      positions.forEach((index) => {
+        mainGrid[index].classList.add(`ai-${i}`);
+      });
+    });
+  });
   resetButton.innerText = 'Reset';
   playButton.innerText = 'PLAY';
 

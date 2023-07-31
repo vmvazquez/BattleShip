@@ -290,6 +290,24 @@ div .overlap-cell,
 .invalid-cell{
   background-color: rgb(241, 38, 38);
 }
+div .ai-0{
+  background-color: #D9D9D9;
+}
+div .ai-1 {
+  background-color: #7c5e5e;
+}
+div .ai-2 {
+  background-color: #805fe3;
+}
+div .ai-3 {
+  background-color: #87cc17;
+}
+div .ai-4 {
+  background-color: #c94add;
+}
+div .ai-5 {
+  background-color: #caec08;
+}
 /***************************  End of Main Grid  ***********************************/
 /***************************  Start of Background Image  ***********************************/
 .background-box{
