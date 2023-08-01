@@ -24,4 +24,9 @@ let descArr = [
   'Submarine',
 ];
 
-export { shipImageArr, healthCountArr, descArr };
+let healthMap = new Map();
+
+shipImageArr.forEach((img, i) => {
+  healthMap.set(img, healthCountArr[i]);
+});
+export { shipImageArr, healthCountArr, descArr, healthMap };

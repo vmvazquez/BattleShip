@@ -93,7 +93,10 @@ const drawImageOnBoard = (health, imageElement) => {
 
   newImage.style.setProperty('left', `${newLeft}px`);
   newImage.style.setProperty('top', `${newTop}px`);
-
+  newImage.style.setProperty(
+    'max-height',
+    `${hoveredCell.getBoundingClientRect().height}px`
+  );
   let newImageHeight = imageElement.getBoundingClientRect().height;
 
   let cellHeight = hoveredCell.getBoundingClientRect().height;
@@ -109,4 +112,4 @@ const getCellWidth = () => {
   return gridContainer.getBoundingClientRect().width;
 };
 
-export { createShipImage, draggedObject, getCellWidth };
+export { createShipImage, draggedObject, getCellWidth, findImage };

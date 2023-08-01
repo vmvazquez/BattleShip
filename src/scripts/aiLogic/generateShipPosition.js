@@ -5,13 +5,15 @@ const generateAIShipLocations = (shipObjectArray = null) => {
   let map = Array(100).fill(true);
 
   let finalPositions = [];
+  let directions = [];
   healthCountArr.forEach((health) => {
     let positions;
+    let direction;
     let validPlacementFound = false;
 
     // Finding positions that don't over lap with other spots
     while (!validPlacementFound) {
-      positions = generateRandomShipLocation(health);
+      ({ positions, direction } = generateRandomShipLocation(health));
       validPlacementFound = true;
 
       positions.forEach((position) => {
@@ -20,39 +22,45 @@ const generateAIShipLocations = (shipObjectArray = null) => {
         }
       });
     }
+    let shell = getShell(positions, direction);
 
+    shell.forEach((position) => {
+      map[position] = false;
+    });
     // Found a valid position
     positions.forEach((position) => {
       map[position] = false;
     });
+    directions.push(direction);
     finalPositions.push(positions);
   });
-  return finalPositions;
+  return { finalPositions, directions };
 };
 
 const generateRandomShipLocation = (shipHealth) => {
-  let arr = null;
-  while (arr == null) {
-    let direction = getRandomInt(4);
+  let positions = null;
+  let direction;
+  while (positions == null) {
+    direction = getRandomInt(4);
     let row = getRandomInt(10);
     let column = getRandomInt(10);
 
     switch (direction) {
       case 0:
-        arr = getContinuousLocationsNorth(row, column, shipHealth);
+        positions = getContinuousLocationsNorth(row, column, shipHealth);
         break;
       case 1:
-        arr = getContinuousLocationsEast(row, column, shipHealth);
+        positions = getContinuousLocationsEast(row, column, shipHealth);
         break;
       case 2:
-        arr = getContinuousLocationsSouth(row, column, shipHealth);
+        positions = getContinuousLocationsSouth(row, column, shipHealth);
         break;
       case 3:
-        arr = getContinuousLocationsWest(row, column, shipHealth);
+        positions = getContinuousLocationsWest(row, column, shipHealth);
         break;
     }
   }
-  return arr;
+  return { positions, direction };
 };
 
 /**
@@ -115,19 +123,26 @@ const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
 };
 
+const getShell = (arr, direction) => {
+  if (direction % 2 == 0) {
+    return getVerticalShell(arr);
+  }
+  return getHorizontalShell(arr);
+};
 const getHorizontalShell = (horizontalArr) => {
   let shellArr = [];
   horizontalArr.forEach((position, i) => {
-    shellArr.push(horizontalBotCell(position));
-    shellArr.push(horizontalTopCell(position));
+    shellArr.push(getBotCell(position));
+    shellArr.push(getTopCell(position));
     if (i == 0) {
-      shellArr.push(horizontalBotLeftCell(position));
-      shellArr.push(horizontalTopLeftCell(position));
-      shellArr.push(horizontalLeftCell(position));
-    } else if (i == horizontalArr.length - 1) {
-      shellArr.push(horizontalBotRightCell(position));
-      shellArr.push(horizontalTopRightCell(position));
-      shellArr.push(horizontalRightCell(position));
+      shellArr.push(getBotLeftCell(position));
+      shellArr.push(getTopLeftCell(position));
+      shellArr.push(getLeftCell(position));
+    }
+    if (i == horizontalArr.length - 1) {
+      shellArr.push(getBotRightCell(position));
+      shellArr.push(getTopRightCell(position));
+      shellArr.push(getRightCell(position));
     }
   });
 
@@ -135,56 +150,81 @@ const getHorizontalShell = (horizontalArr) => {
 
   return finalShell.sort((a, b) => a - b);
 };
-const horizontalLeftCell = (position) => {
+
+const getVerticalShell = (verticalArr) => {
+  let shellArr = [];
+
+  verticalArr.forEach((position, i) => {
+    shellArr.push(getLeftCell(position));
+    shellArr.push(getRightCell(position));
+
+    if (i == 0) {
+      shellArr.push(getTopCell(position));
+      shellArr.push(getTopRightCell(position));
+      shellArr.push(getTopLeftCell(position));
+    }
+    if (i == verticalArr.length - 1) {
+      shellArr.push(getBotCell(position));
+      shellArr.push(getBotLeftCell(position));
+
+      shellArr.push(getBotRightCell(position));
+    }
+  });
+
+  let finalShell = shellArr.filter((position) => position != null);
+
+  return finalShell.sort((a, b) => a - b);
+};
+const getLeftCell = (position) => {
   let leftSpot = position - 1;
   if (leftSpot % 10 < position % 10 && leftSpot >= 0) {
     return leftSpot;
   }
   return null;
 };
-const horizontalRightCell = (position) => {
+const getRightCell = (position) => {
   let rightSpot = position + 1;
   if (rightSpot % 10 > position % 10 && rightSpot < 100) {
     return rightSpot;
   }
   return null;
 };
-const horizontalTopCell = (position) => {
+const getTopCell = (position) => {
   let aboveSpot = position - 10;
   if (aboveSpot >= 0) {
     return aboveSpot;
   }
   return null;
 };
-const horizontalBotCell = (position) => {
+const getBotCell = (position) => {
   let belowSpot = position + 10;
   if (belowSpot < 100) {
     return belowSpot;
   }
   return null;
 };
-const horizontalTopLeftCell = (position) => {
+const getTopLeftCell = (position) => {
   let aboveSpot = position - 11;
   if (aboveSpot >= 0 && aboveSpot % 10 < position % 10) {
     return aboveSpot;
   }
   return null;
 };
-const horizontalBotLeftCell = (position) => {
+const getBotLeftCell = (position) => {
   let belowSpot = position + 9;
   if (belowSpot < 100 && belowSpot % 10 < position % 10) {
     return belowSpot;
   }
   return null;
 };
-const horizontalTopRightCell = (position) => {
+const getTopRightCell = (position) => {
   let aboveSpot = position - 9;
   if (aboveSpot >= 0 && aboveSpot % 10 > position % 10) {
     return aboveSpot;
   }
   return null;
 };
-const horizontalBotRightCell = (position) => {
+const getBotRightCell = (position) => {
   let belowSpot = position + 11;
   if (belowSpot < 100 && belowSpot % 10 > position % 10) {
     return belowSpot;
@@ -199,4 +239,5 @@ export {
   generateRandomShipLocation,
   generateAIShipLocations,
   getHorizontalShell,
+  getVerticalShell,
 };

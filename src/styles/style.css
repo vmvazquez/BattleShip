@@ -148,22 +148,26 @@ background-color: var(--light-blue-color);
   display: flex;
   gap: 2rem;
 }
+
 /***************************  End of Ship Selection Page  ***********************************/
 /***************************  Start of Right Side  ***********************************/
+
+.left-side,
 .right-side{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   transition: transform 1s cubic-bezier(0.215, 0.610, 0.355, 1) ;
-  /* justify-self: center; */
   width: 100%;
   
 }
+.left-side p,
 .right-side p{
   font-size: 3rem;
   margin: 0;
 }
+
 .right-side:first-child{
 margin-left: 5rem;
 
@@ -188,6 +192,7 @@ margin-left: 5rem;
 .ship-grid{
   display: grid;
   grid-template-columns: repeat(2,1fr);
+ 
 }
 
 /***************************  End of Ship Grid  ***********************************/
@@ -229,15 +234,11 @@ margin-left: 5rem;
   transition: 0.01s;
   transform: translateX(-3000px);
 }
-.unhide{
-  transition: 0.01s;
-  transform: translateX(3000px);
-}
+
 /***************************  End of Ship Card  ***********************************/
 /***************************  Start of Main Grid  ***********************************/
 .attack{
-  cursor: url('../res/icons/focus.png') 64 64,pointer;
-
+  /* cursor: url('../res/icons/focus.png') 64 64,pointer; */
 }
 .cell-miss{
   display: flex;
@@ -246,7 +247,7 @@ margin-left: 5rem;
 }
 .grid-container{
   position: relative;
-  align-self: self-start;
+  align-self: center;
   height: var(--grid-width);
   width: 90%;
   border-radius: var(--field-border-radius);
@@ -256,6 +257,15 @@ margin-left: 5rem;
   /* left: 492px;
   top: 474px; */
 }
+.north{
+  transform: rotate(90deg);
+}
+.east{
+  transform: scaleX(-1);
+}
+.south{
+  transform: rotate(-90deg);
+}
 .main-grid {
   display: grid;
   height: 100%;
@@ -263,6 +273,7 @@ margin-left: 5rem;
   grid-template-rows: repeat(10,1fr);
   background-image: url('../res/water.jpg');
   border-radius: var(--field-border-radius);
+  
 }
 
 .main-grid div{

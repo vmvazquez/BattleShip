@@ -1,5 +1,3 @@
-import sub from '../../res/ships/sub.png';
-import { createDifficultyButtons } from '../components/difficultyButtons';
 import { createGrid } from '../components/mainGrid';
 const createRightSide = () => {
   let gridContainer = document.createElement('div');

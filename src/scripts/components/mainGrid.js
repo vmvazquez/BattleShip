@@ -8,7 +8,6 @@ const createGrid = () => {
   mainContainer.classList.add('main-grid');
 
   mainContainer.addEventListener('mouseover', (e) => {
-    console.log('mouse');
     mainContainer.classList.add('attack');
   });
   mainContainer.addEventListener('mouseleave', () => {
