@@ -19,7 +19,18 @@ window.addEventListener('resize', (e) => {
   resizeImagesOnSideGrid();
   resizeAndCenterHorShipsOnField();
 });
-window.addEventListener('keydown', () => {
+
+window.addEventListener('keydown', function once() {
   let img = createShipImage(4, shipImageArr[0]);
+  let simpleImg = createShipImage(4, shipImageArr[0]);
+  // img.classList.add('north');
   drawImageOnBoardWithPositions([41, 42, 43, 44], img);
+  // drawImageOnBoardWithPositions([41, 51, 61, 71], simpleImg);
+  let cells = Array.from(document.querySelector('.main-grid').children);
+  let grid = document.querySelector('.main-grid');
+
+  console.log('cell 41');
+  console.log(cells[41].getBoundingClientRect());
+  console.log('grid');
+  console.log(grid.getBoundingClientRect());
 });
