@@ -2,7 +2,7 @@ import { generateAIShipLocations } from '../aiLogic/generateShipPosition';
 import { nameBoards } from '../gameStart/nameBoards';
 import { removeDraggable } from '../gameStart/removeDraggable';
 import { gameBoardManager } from '../objects/gameBoardManager';
-import { resizeImagesOnPlayingField } from '../objects/imageHandler';
+import { resizeAndCenterHorShipsOnField } from '../objects/imageHandler';
 import { createRightSide } from '../startUp/rightSide';
 const createDifficultyButtons = () => {
   let autoAssignButton = document.createElement('button');
@@ -52,7 +52,7 @@ const createDifficultyButtons = () => {
     leftSide.parentElement.replaceChild(newRightSide, leftSide);
     removeDraggable();
     nameBoards();
-    resizeImagesOnPlayingField();
+    resizeAndCenterHorShipsOnField();
   });
   return mainContainer;
 };

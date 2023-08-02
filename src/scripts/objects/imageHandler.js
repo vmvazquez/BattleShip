@@ -19,8 +19,12 @@ const getShipCards = () => {
   return shipImages;
 };
 
-const resizeImagesOnPlayingField = () => {
+const resizeAndCenterHorShipsOnField = () => {
   let ships = getShipImagesOnMainGrid();
+  resizeHorizontalShipsOnField(ships);
+  centerAllHorShipsOnField(ships);
+};
+const resizeHorizontalShipsOnField = (ships) => {
   let cell = document.querySelector('.main-grid').firstChild;
 
   let width = cell.getBoundingClientRect().width;
@@ -33,6 +37,10 @@ const resizeImagesOnPlayingField = () => {
     let health = healthMap.get(ship.src);
 
     ship.style.setProperty('width', `${width * health}px`);
+  });
+};
+const centerAllHorShipsOnField = (ships) => {
+  ships.forEach((ship) => {
     centerImageOnFieldHorizontally(ship);
   });
 };
@@ -59,4 +67,8 @@ const centerImageOnFieldHorizontally = (image) => {
 const getShipImagesOnMainGrid = () => {
   return Array.from(document.querySelectorAll('.grid-container img'));
 };
-export { resizeImagesOnSideGrid, resizeImagesOnPlayingField };
+export {
+  resizeImagesOnSideGrid,
+  resizeHorizontalShipsOnField,
+  resizeAndCenterHorShipsOnField,
+};
