@@ -107,6 +107,7 @@ const drawImageOnBoard = (health, imageElement) => {
 
   gridContainer.append(newImage);
 };
+
 const getCellWidth = () => {
   let gridContainer = document.querySelector('.main-grid').firstChild;
   return gridContainer.getBoundingClientRect().width;
