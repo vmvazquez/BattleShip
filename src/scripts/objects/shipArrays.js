@@ -46,4 +46,7 @@ let healthMap = new Map();
 shipImageArr.forEach((img, i) => {
   healthMap.set(img, healthCountArr[i]);
 });
+verticalImageArr.forEach((img, i) => {
+  healthMap.set(img, healthCountArr[i]);
+});
 export { shipImageArr, healthCountArr, descArr, healthMap, verticalImageArr };

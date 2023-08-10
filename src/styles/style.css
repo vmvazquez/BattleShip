@@ -238,7 +238,7 @@ margin-left: 5rem;
 /***************************  End of Ship Card  ***********************************/
 /***************************  Start of Main Grid  ***********************************/
 .attack{
-  /* cursor: url('../res/icons/focus.png') 64 64,pointer; */
+  cursor: url('../res/icons/focus.png') 64 64,pointer;
 }
 .cell-miss{
   display: flex;
@@ -251,6 +251,7 @@ margin-left: 5rem;
   height: var(--grid-width);
   width: 90%;
   border-radius: var(--field-border-radius);
+  overflow: hidden;
 }
 .grid-container > img{
   position: absolute;

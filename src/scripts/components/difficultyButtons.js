@@ -2,7 +2,10 @@ import { generateAIShipLocations } from '../aiLogic/generateShipPosition';
 import { nameBoards } from '../gameStart/nameBoards';
 import { removeDraggable } from '../gameStart/removeDraggable';
 import { gameBoardManager } from '../objects/gameBoardManager';
-import { resizeAndCenterHorShipsOnField } from '../objects/imageHandler';
+import {
+  resizeAndCenterHorShipsOnField,
+  drawAllImagesOnBoardWithPositions,
+} from '../objects/imageHandler';
 import { createRightSide } from '../startUp/rightSide';
 const createDifficultyButtons = () => {
   let autoAssignButton = document.createElement('button');
@@ -18,6 +21,7 @@ const createDifficultyButtons = () => {
       cell.removeAttribute('class');
     });
     let { finalPositions, directions } = generateAIShipLocations();
+    drawAllImagesOnBoardWithPositions(finalPositions, directions);
     console.log(finalPositions);
     finalPositions.forEach((positions, i) => {
       positions.forEach((index) => {

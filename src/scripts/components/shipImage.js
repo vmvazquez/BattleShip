@@ -22,7 +22,7 @@ const createShipImage = (health, shipImgSrc) => {
     boatImage.classList.remove('dragging');
     let hoveredCell = document.querySelector('.hovered-cell');
     if (hoveredCell) {
-      drawImageOnBoard(health, boatImage);
+      drawDraggedImageOnBoard(health, boatImage);
       if (boatImage.parentElement.matches('.grid-container')) {
         if (gameBoardManager.map.has(boatImage.src)) {
           gameBoardManager.map.get(boatImage.src).forEach((cell) => {
@@ -73,7 +73,7 @@ const findImage = (imageSrc) => {
  * @param {Integer} health The amount of hit grid boxes an image will take up
  * @param {Element} imageElement The img element container
  */
-const drawImageOnBoard = (health, imageElement) => {
+const drawDraggedImageOnBoard = (health, imageElement) => {
   let gridContainer = document.querySelector('.grid-container');
 
   let newImage = createShipImage(health, imageElement);
