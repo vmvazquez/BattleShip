@@ -1,20 +1,28 @@
 import { createDraggedObject } from '../objects/draggedObject';
 import { gameBoardManager } from '../objects/gameBoardManager';
+import { healthMap } from '../objects/shipArrays';
 import { clearPreviews, getAllLinkedCells } from './mainGrid';
 let draggedObject;
-const createShipImage = (health, shipImgSrc) => {
+const createShipImage = (health, shipImgSrc, hor = true) => {
   let boatImage = document.createElement('img');
   boatImage.src = shipImgSrc;
   boatImage.draggable = 'true';
   boatImage.style.setProperty('width', `${getCellWidth() * health}px`);
 
   boatImage.addEventListener('dragstart', (e) => {
-    let imageOnGrid = findImage(shipImgSrc);
-
-    draggedObject = createDraggedObject(imageOnGrid.parentElement);
+    draggedObject = {
+      health: healthMap.get(shipImgSrc),
+      img: shipImgSrc,
+      hor,
+    };
     boatImage.classList.add('dragging');
     if (boatImage.parentElement.matches('.grid-container')) {
       boatImage.classList.add('hide');
+    }
+    if (gameBoardManager.map.has(boatImage.src)) {
+      gameBoardManager.map.get(boatImage.src).forEach((cell) => {
+        cell.classList.remove('taken');
+      });
     }
   });
 
@@ -36,35 +44,15 @@ const createShipImage = (health, shipImgSrc) => {
         return cell;
       });
       gameBoardManager.map.set(boatImage.src, linkedCells);
+      console.log('Linked cells');
+      console.log(linkedCells);
     }
     boatImage.classList.remove('hide');
     clearPreviews();
   });
   boatImage.classList.add('draggable');
-
+  hor ? boatImage.classList.add('hor') : boatImage.classList.add('vert');
   return boatImage;
-};
-
-/**
- * Links an image element from the .ship-grid container from any ship image source.
- * @param {Element| String} imageSrc Either an img element or img string
- * @returns {Element} it returns the image Element of the image from.ship-grid
- */
-const findImage = (imageSrc) => {
-  let cards = Array.from(document.querySelectorAll('.ship-card'));
-
-  let trueImageSrc = imageSrc;
-  if (typeof imageSrc == 'object') {
-    trueImageSrc = imageSrc.src;
-  }
-
-  let image;
-  cards.forEach((card) => {
-    if (card.firstChild.nextSibling.src == trueImageSrc) {
-      image = card.firstChild.nextSibling;
-    }
-  });
-  return image;
 };
 
 /**
@@ -76,7 +64,7 @@ const findImage = (imageSrc) => {
 const drawDraggedImageOnBoard = (health, imageElement) => {
   let gridContainer = document.querySelector('.grid-container');
 
-  let newImage = createShipImage(health, imageElement);
+  let newImage = createShipImage(health, imageElement.src);
 
   newImage.src = imageElement.src;
 
@@ -113,4 +101,26 @@ const getCellWidth = () => {
   return gridContainer.getBoundingClientRect().width;
 };
 
-export { createShipImage, draggedObject, getCellWidth, findImage };
+/**
+ * Links an image element from the .ship-grid container from any ship image source.
+ * @param {Element| String} imageSrc Either an img element or img string
+ * @returns {Element} it returns the image Element of the image from.ship-grid
+ */
+// const findImage = (imageSrc) => {
+//   let cards = Array.from(document.querySelectorAll('.ship-card'));
+
+//   let trueImageSrc = imageSrc;
+//   if (typeof imageSrc == 'object') {
+//     trueImageSrc = imageSrc.src;
+//   }
+
+//   let image;
+//   cards.forEach((card) => {
+//     if (card.firstChild.nextSibling.src == trueImageSrc) {
+//       image = card.firstChild.nextSibling;
+//     }
+//   });
+//   return image;
+// };
+
+export { createShipImage, draggedObject, getCellWidth };

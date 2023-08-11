@@ -64,11 +64,16 @@ const drawShipPlacementPreview = (e) => {
 
   let cellArray = [];
 
-  if (rightToLeft) {
+  if (draggedObject.hor) {
     cellArray = getAllLinkedCells();
+  } else {
+    cellArray = getVerticalLinkedCells();
   }
 
+  console.log('Cells array');
+  console.log(cellArray);
   // We have all the cells we need to highlight
+
   cellArray.forEach((cell, i) => {
     if (cellArray.length == draggedObject.health) {
       if (i == 0) {
@@ -81,9 +86,29 @@ const drawShipPlacementPreview = (e) => {
     }
   });
 };
+
+const getVerticalLinkedCells = () => {
+  let cellArray = [];
+  let currentCell = document.querySelector('.starting-cell');
+  let mainGrid = Array.from(document.querySelector('.main-grid').children);
+
+  let currentIndex = mainGrid.indexOf(currentCell);
+
+  console.log(currentIndex);
+  for (
+    let i = 0;
+    i < draggedObject.health && currentIndex > -1 && isValidCell(currentCell);
+    i++
+  ) {
+    cellArray.push(currentCell);
+
+    currentCell = mainGrid.at(currentIndex - 10);
+    currentIndex -= 10;
+  }
+
+  return cellArray;
+};
 const getAllLinkedCells = () => {
-  console.log('dragged object');
-  console.log(draggedObject.img);
   let cellArray = [];
   let currentCell = document.querySelector('.starting-cell');
 
@@ -92,7 +117,7 @@ const getAllLinkedCells = () => {
 
   // TODO BUG: currentCell.previousSibling != null
   // doesnt highlight the first div in the grid as red
-  // since it doesnt have a previous element
+  // since it doesn't have a previous element
 
   for (
     let i = 0;

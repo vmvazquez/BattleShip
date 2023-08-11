@@ -10,19 +10,24 @@ import { healthMap, shipImageArr, verticalImageArr } from './shipArrays';
  */
 const drawAllImagesOnBoardWithPositions = (positionsArray, directionArr) => {
   clearAllShips();
+  let allCells = Array.from(document.querySelector('.main-grid').children);
+
   positionsArray.forEach((positions, i) => {
     let imgSrc;
+    let isVertical = true;
     // Getting vertical or horizontal image
     if (directionArr[i] % 2 == 0) {
       imgSrc = verticalImageArr[i];
+      isVertical = false;
     } else {
       imgSrc = shipImageArr[i];
     }
-    // let imgElement = document.createElement('img');
-    // imgElement.src = imgSrc;
 
-    let imgElement = createShipImage(healthMap.get(imgSrc), imgSrc);
+    let imgElement = createShipImage(healthMap.get(imgSrc), imgSrc, isVertical);
     drawImageOnBoardWithPositions(positions, imgElement, directionArr[i]);
+    positions.forEach((position) => {
+      allCells.at(position).classList.add('taken');
+    });
   });
 };
 const clearAllShips = () => {
@@ -129,8 +134,7 @@ const resizeSingleHorizontalShipOnField = (cell, img, health) => {
 };
 const resizeSingleVerticalShipOnField = (cell, img, health) => {
   let height = cell.getBoundingClientRect().height;
-  console.log('cell height in method');
-  console.log(height);
+
   img.style.setProperty('max-width', `${cell.getBoundingClientRect().width}px`);
   img.style.setProperty('height', `${height * health}px`);
 };
@@ -188,8 +192,6 @@ const getShipNewLeftTopPosition = (cellsArray, img) => {
     relativeTop = childCord.top - parentCoord.top;
   }
 
-  console.log('relative top');
-  console.log(relativeTop);
   return { relativeLeft, relativeTop };
 };
 const getShipNewLeftTopPositionV = (cellsArray, img) => {
@@ -206,8 +208,6 @@ const getShipNewLeftTopPositionV = (cellsArray, img) => {
 
   //   }
 
-  console.log('relative top');
-  console.log(relativeTop);
   return { relativeLeft, relativeTop };
 };
 export {
