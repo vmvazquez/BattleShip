@@ -21,10 +21,12 @@ window.addEventListener('resize', (e) => {
 });
 
 // window.addEventListener('keydown', function once() {
-//   let img = createShipImage(4, verticalImageArr[0]);
+//   // let img = createShipImage(4, verticalImageArr[0]);
 
 //   // img.classList.add('north');
-//   drawImageOnBoardWithPositions([41, 51, 61, 71], img, 0);
+//   let img = createShipImage(4, shipImageArr[0]);
+//   drawImageOnBoardWithPositions([41, 42, 43, 44], img, 0);
+//   // drawImageOnBoardWithPositions([41, 51, 61, 71], img, 0);
 //   // drawImageOnBoardWithPositions([41, 51, 61, 71], simpleImg);
 //   let cells = Array.from(document.querySelector('.main-grid').children);
 //   let grid = document.querySelector('.main-grid');

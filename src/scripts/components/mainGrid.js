@@ -70,10 +70,7 @@ const drawShipPlacementPreview = (e) => {
     cellArray = getVerticalLinkedCells();
   }
 
-  console.log('Cells array');
-  console.log(cellArray);
   // We have all the cells we need to highlight
-
   cellArray.forEach((cell, i) => {
     if (cellArray.length == draggedObject.health) {
       if (i == 0) {
@@ -94,7 +91,6 @@ const getVerticalLinkedCells = () => {
 
   let currentIndex = mainGrid.indexOf(currentCell);
 
-  console.log(currentIndex);
   for (
     let i = 0;
     i < draggedObject.health && currentIndex > -1 && isValidCell(currentCell);
@@ -131,6 +127,11 @@ const getAllLinkedCells = () => {
     currentCell = currentCell.previousSibling;
     nextCellX = currentCell.getBoundingClientRect().left;
   }
+  // if (cellArray.length > 1) {
+  //   if (cellArray[0].previousSibling == cellArray[1]) {
+  //     cellArray.reverse();
+  //   }
+  // }
   return cellArray;
 };
 const isValidCell = (cell) => {
@@ -150,4 +151,5 @@ export {
   getAllLinkedCells,
   clearPreviews,
   drawShipPlacementPreview,
+  getVerticalLinkedCells,
 };

@@ -22,12 +22,12 @@ const createDifficultyButtons = () => {
     });
     let { finalPositions, directions } = generateAIShipLocations();
     drawAllImagesOnBoardWithPositions(finalPositions, directions);
-    console.log(finalPositions);
-    finalPositions.forEach((positions, i) => {
-      positions.forEach((index) => {
-        mainGrid[index].classList.add(`ai-${i}`);
-      });
-    });
+    //**Coloring auto assigned cells */
+    // finalPositions.forEach((positions, i) => {
+    //   positions.forEach((index) => {
+    //     mainGrid[index].classList.add(`ai-${i}`);
+    //   });
+    // });
   });
   resetButton.innerText = 'Reset';
 

@@ -14,16 +14,20 @@ const drawAllImagesOnBoardWithPositions = (positionsArray, directionArr) => {
 
   positionsArray.forEach((positions, i) => {
     let imgSrc;
-    let isVertical = true;
+    let isHorizontal = true;
     // Getting vertical or horizontal image
     if (directionArr[i] % 2 == 0) {
       imgSrc = verticalImageArr[i];
-      isVertical = false;
+      isHorizontal = false;
     } else {
       imgSrc = shipImageArr[i];
     }
 
-    let imgElement = createShipImage(healthMap.get(imgSrc), imgSrc, isVertical);
+    let imgElement = createShipImage(
+      healthMap.get(imgSrc),
+      imgSrc,
+      isHorizontal
+    );
     drawImageOnBoardWithPositions(positions, imgElement, directionArr[i]);
     positions.forEach((position) => {
       allCells.at(position).classList.add('taken');
@@ -113,7 +117,10 @@ const resizeHorizontalShipsOnField = (ships) => {
 
   ships.forEach((ship) => {
     let health = healthMap.get(ship.src);
-    resizeSingleHorizontalShipOnField(cell, ship, health);
+
+    if (ship.matches('.hor'))
+      resizeSingleHorizontalShipOnField(cell, ship, health);
+    else resizeSingleVerticalShipOnField(cell, ship, health);
   });
 };
 
@@ -180,7 +187,12 @@ const moveVerticalImageOnField = (image, cells) => {
  */
 const getShipNewLeftTopPosition = (cellsArray, img) => {
   /**@TODO fix cellsArray to use last or first element based on ship orientation */
-  let childCord = cellsArray[0].getBoundingClientRect();
+  let childCord;
+
+  childCord = cellsArray[0].getBoundingClientRect();
+  if (cellsArray[0].previousSibling == cellsArray[1]) {
+    childCord = cellsArray[cellsArray.length - 1].getBoundingClientRect();
+  }
   let parent = document.querySelector('.right-side .main-grid');
   let parentCoord = parent.getBoundingClientRect();
   let relativeLeft = childCord.left - parentCoord.left;
