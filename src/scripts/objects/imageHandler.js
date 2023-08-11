@@ -1,12 +1,54 @@
+import { createShipImage } from '../components/shipImage';
 import { gameBoardManager } from './gameBoardManager';
-import { healthMap } from './shipArrays';
+import { healthMap, shipImageArr, verticalImageArr } from './shipArrays';
 
+/**
+ *
+ * @param {Array} positionsArray An array of arrays with positions [[41,42,43],[1,11,21]]
+ * @param {*} imgArray an array of img elements
+ * @param {*} directionArr an array of integers denoting direction as per @file generateShipPosition.js
+ */
+const drawAllImagesOnBoardWithPositions = (positionsArray, directionArr) => {
+  clearAllShips();
+  let allCells = Array.from(document.querySelector('.main-grid').children);
+
+  positionsArray.forEach((positions, i) => {
+    let imgSrc;
+    let isHorizontal = true;
+    // Getting vertical or horizontal image
+    if (directionArr[i] % 2 == 0) {
+      imgSrc = verticalImageArr[i];
+      isHorizontal = false;
+    } else {
+      imgSrc = shipImageArr[i];
+    }
+
+    let imgElement = createShipImage(
+      healthMap.get(imgSrc),
+      imgSrc,
+      isHorizontal
+    );
+    drawImageOnBoardWithPositions(positions, imgElement, directionArr[i]);
+    positions.forEach((position) => {
+      allCells.at(position).classList.add('taken');
+    });
+  });
+};
+const clearAllShips = () => {
+  let imageContainer = Array.from(
+    document.querySelectorAll('.grid-container img')
+  );
+
+  imageContainer.forEach((img) => {
+    img.parentElement.removeChild(img);
+  });
+};
 /**
  *
  * @param {Array} positions Position where boat will be. Ex [46,47,48,49]
  * @param {Element} imgElement The ship image element
  */
-const drawImageOnBoardWithPositions = (positions, imgElement) => {
+const drawImageOnBoardWithPositions = (positions, imgElement, direction) => {
   let cells = Array.from(document.querySelector('.main-grid').children);
 
   let cellsWhereShipWillBe = [];
@@ -19,9 +61,23 @@ const drawImageOnBoardWithPositions = (positions, imgElement) => {
   imageContainer.append(imgElement);
 
   imgElement.addEventListener('load', () => {
-    console.log(cellsWhereShipWillBe);
-    placeHorizontalImageOnField(imgElement, cellsWhereShipWillBe);
-    resizeSingleHorizontalShipOnField(cells[0], imgElement, 4);
+    // WORKS FOR HORIZONTAL SHIPS
+    if (direction % 2 == 0) {
+      moveVerticalImageOnField(imgElement, cellsWhereShipWillBe);
+      resizeSingleVerticalShipOnField(
+        cells[0],
+        imgElement,
+        healthMap.get(imgElement.src)
+      );
+    } else {
+      resizeSingleHorizontalShipOnField(
+        cells[0],
+        imgElement,
+        healthMap.get(imgElement.src)
+      );
+      moveHorizontalImageOnField(imgElement, cellsWhereShipWillBe);
+    }
+
     gameBoardManager.map.set(imgElement.src, cellsWhereShipWillBe);
   });
 };
@@ -61,9 +117,13 @@ const resizeHorizontalShipsOnField = (ships) => {
 
   ships.forEach((ship) => {
     let health = healthMap.get(ship.src);
-    resizeSingleHorizontalShipOnField(cell, ship, health);
+
+    if (ship.matches('.hor'))
+      resizeSingleHorizontalShipOnField(cell, ship, health);
+    else resizeSingleVerticalShipOnField(cell, ship, health);
   });
 };
+
 /**
  *
  * @param {Element} cell div element for the cell
@@ -79,6 +139,12 @@ const resizeSingleHorizontalShipOnField = (cell, img, health) => {
 
   img.style.setProperty('width', `${width * health}px`);
 };
+const resizeSingleVerticalShipOnField = (cell, img, health) => {
+  let height = cell.getBoundingClientRect().height;
+
+  img.style.setProperty('max-width', `${cell.getBoundingClientRect().width}px`);
+  img.style.setProperty('height', `${height * health}px`);
+};
 /**
  *
  * @param {Array} ships An array filled with img tag elements of ships
@@ -86,8 +152,31 @@ const resizeSingleHorizontalShipOnField = (cell, img, health) => {
  */
 const centerAllHorShipsOnField = (ships) => {
   ships.forEach((ship) => {
-    placeHorizontalImageOnField(ship, gameBoardManager.map.get(ship.src));
+    moveHorizontalImageOnField(ship, gameBoardManager.map.get(ship.src));
   });
+};
+/**
+ * It places a ship image over the grid cells it should hover. Its left and top
+ * css position will be calculated based on the first of it's cell encounter in the grid.
+ *
+ * @param {Element} image The Image Element
+ * @param {Array} cells The cells where that image should be placed at. [div,div,div,div]
+ */
+const moveHorizontalImageOnField = (image, cells) => {
+  let { relativeLeft, relativeTop } = getShipNewLeftTopPosition(cells, image);
+
+  image.style.setProperty('left', `${relativeLeft}px`);
+
+  image.style.setProperty('top', `${relativeTop}px`);
+};
+const getShipImagesOnMainGrid = () => {
+  return Array.from(document.querySelectorAll('.grid-container img'));
+};
+const moveVerticalImageOnField = (image, cells) => {
+  let { relativeLeft, relativeTop } = getShipNewLeftTopPositionV(cells, image);
+  image.style.setProperty('left', `${relativeLeft}px`);
+
+  image.style.setProperty('top', `${relativeTop}px`);
 };
 /**
  *
@@ -97,7 +186,13 @@ const centerAllHorShipsOnField = (ships) => {
  *
  */
 const getShipNewLeftTopPosition = (cellsArray, img) => {
-  let childCord = cellsArray[cellsArray.length - 1].getBoundingClientRect();
+  /**@TODO fix cellsArray to use last or first element based on ship orientation */
+  let childCord;
+
+  childCord = cellsArray[0].getBoundingClientRect();
+  if (cellsArray[0].previousSibling == cellsArray[1]) {
+    childCord = cellsArray[cellsArray.length - 1].getBoundingClientRect();
+  }
   let parent = document.querySelector('.right-side .main-grid');
   let parentCoord = parent.getBoundingClientRect();
   let relativeLeft = childCord.left - parentCoord.left;
@@ -111,24 +206,25 @@ const getShipNewLeftTopPosition = (cellsArray, img) => {
 
   return { relativeLeft, relativeTop };
 };
+const getShipNewLeftTopPositionV = (cellsArray, img) => {
+  let childCord = cellsArray[0].getBoundingClientRect();
+  let parent = document.querySelector('.right-side .main-grid');
+  let parentCoord = parent.getBoundingClientRect();
+  let relativeLeft = childCord.left - parentCoord.left;
+  let relativeTop;
+  //   let imageHeight = img.getBoundingClientRect().height;
+  relativeTop = childCord.top - parentCoord.top;
+  //   if (imageHeight < childCord.height * 0.6) {
+  //     relativeTop = childCord.top - parentCoord.top + imageHeight / 2;
+  //   } else {
 
-/**
- *
- * @param {Element} image The Image Element
- * @param {Array} cells The cells where that image should be placed at. [div,div,div,div]
- */
-const placeHorizontalImageOnField = (image, cells) => {
-  let { relativeLeft, relativeTop } = getShipNewLeftTopPosition(cells, image);
+  //   }
 
-  image.style.setProperty('left', `${relativeLeft}px`);
-
-  image.style.setProperty('top', `${relativeTop}px`);
-};
-const getShipImagesOnMainGrid = () => {
-  return Array.from(document.querySelectorAll('.grid-container img'));
+  return { relativeLeft, relativeTop };
 };
 export {
   resizeImagesOnSideGrid,
   resizeAndCenterHorShipsOnField,
   drawImageOnBoardWithPositions,
+  drawAllImagesOnBoardWithPositions,
 };

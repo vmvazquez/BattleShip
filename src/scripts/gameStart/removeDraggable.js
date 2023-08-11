@@ -17,8 +17,6 @@ const removeDraggableFromImages = () => {
 const removeDragEnterFromCells = () => {
   let cells = Array.from(document.querySelectorAll('.main-grid > div'));
 
-  console.log('cell lenght');
-  console.log(cells.length);
   cells.forEach((cell) => {
     cell.removeEventListener('dragenter', drawShipPlacementPreview);
     cell.addEventListener('click', cellClick);
