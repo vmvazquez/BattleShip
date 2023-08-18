@@ -48,7 +48,6 @@ const createGameStateManager = () => {
     console.log('=======================');
     console.log('finished game');
     console.log('Turns: ' + turns);
-    console.log('Hits: ' + totalHits);
   };
 
   return { turn, thisPlayerShipMap, opponentShipMap, startGame };

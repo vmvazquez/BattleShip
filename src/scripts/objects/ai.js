@@ -1,6 +1,10 @@
+const { healthCountArr } = require('./shipArrays');
+
 module.exports = class AI {
   constructor() {
-    this.remainingShips = [4, 3, 2, 2, 1, 2];
+    healthCountArr;
+    // this.remainingShips = [4, 3, 2, 2, 1, 2];
+    this.remainingShips = [...healthCountArr];
     this.alreadyHitIndices = [];
   }
 

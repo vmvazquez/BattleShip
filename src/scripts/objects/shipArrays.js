@@ -31,7 +31,8 @@ let shipImageArr = [
   sub,
 ];
 
-let healthCountArr = [4, 3, 2, 2, 1, 2];
+// let healthCountArr = [4, 3, 2, 2, 1, 2];
+let healthCountArr = [5, 4, 3, 3, 2, 2];
 let descArr = [
   'Carrier',
   'Cruiser',
