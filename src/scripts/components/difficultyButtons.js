@@ -40,6 +40,7 @@ const createDifficultyButtons = () => {
 
   playButton.addEventListener('click', () => {
     console.log('Game Board CPU');
+    gameStateManager.startGame(gameStateManager.playerShipsLocation);
     console.log(gameBoardManager.cpuShipLocations);
     let leftSide = document.querySelector('.select-aside');
     leftSide.style.visibility = 'hidden';
@@ -62,7 +63,6 @@ const createDifficultyButtons = () => {
     removeDraggable();
     nameBoards();
     resizeAndCenterHorShipsOnField();
-    gameStateManager.startGame();
   });
   return mainContainer;
 };

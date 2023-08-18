@@ -7,37 +7,37 @@ const createGameStateManager = () => {
   let thisPlayerShipMap = new Map();
   let opponentShipMap = new Map();
   let ai = new AI();
-  let playerShipsLocation = gameBoardManager.convertPlayerMap(
-    gameBoardManager.map
-  );
-  const startGame = () => {
-    let gameOver = false;
+  let playerShipsLocation;
+  const startGame = (playerShipsLocation) => {
+    // let gameOver = false;
 
-    let turns = 0;
+    // let turns = 0;
     playerShipsLocation = gameBoardManager.convertPlayerMap(
       gameBoardManager.map
     );
-    let objectMap = gameBoardManager.convertPlayerMap(gameBoardManager.map);
+    console.log('THE SOURCE');
+    console.log(playerShipsLocation);
+    // let objectMap = gameBoardManager.convertPlayerMap(gameBoardManager.map);
 
-    while (cpuShipsHit < 14 || turns > 100) {
-      if (turn == 1) {
-        let didHit = handleCPUTurn(ai, objectMap);
-        if (!didHit) {
-          turn = (turn + 1) % 2;
-          let turnText = document.querySelector('.turn-text p');
-          turnText.innerText = 'Your Turn';
-        }
-      }
+    // while (cpuShipsHit < 14 || turns > 100) {
+    //   if (turn == 1) {
+    //     let didHit = handleCPUTurn(ai, objectMap);
+    //     if (!didHit) {
+    //       turn = (turn + 1) % 2;
+    //       let turnText = document.querySelector('.turn-text p');
+    //       turnText.innerText = 'Your Turn';
+    //     }
+    //   }
 
-      if (cpuShipsHit.length == 14) {
-        gameOver = true;
-      }
+    //   if (cpuShipsHit.length == 14) {
+    //     gameOver = true;
+    //   }
 
-      turns++;
-    }
-    console.log('============================');
-    console.log('Finished game');
-    console.log('turns: ' + turns);
+    //   turns++;
+    // }
+    // console.log('============================');
+    // console.log('Finished game');
+    // console.log('turns: ' + turns);
   };
 
   /**
@@ -52,10 +52,17 @@ const createGameStateManager = () => {
     console.log(aiAttack);
     let result = null;
     let didHit = false;
+    // TODO: FIND A BETTER PLACE FOR HTML CODE
+    console.log('adding colored class');
+    let cells = Array.from(
+      document.querySelector('.right-side .main-grid').children
+    );
+    cells[aiAttack].classList.add('ai-attack');
     if (gameBoardManager.isCpuAttackAHit(aiAttack)) {
       result = gameBoardManager.handleHit(playerShipsLocation, aiAttack);
 
       gameBoardManager.handleHitHTML(result, aiAttack);
+
       didHit = true;
       if (result != null) {
         let index = ai.remainingShips.indexOf(result.health);
@@ -76,6 +83,7 @@ const createGameStateManager = () => {
     playerShipsHit,
     ai,
     playerShipsLocation,
+    handleCPUTurn,
   };
 };
 

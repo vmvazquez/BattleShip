@@ -11,7 +11,7 @@ const createGrid = () => {
     let cell = document.createElement('div');
 
     let p = document.createElement('p');
-    p.innerText = i;
+    // p.innerText = i;
     cell.append(p);
     cell.addEventListener('dragenter', drawShipPlacementPreview);
 

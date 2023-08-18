@@ -240,6 +240,12 @@ margin-left: 5rem;
 .attack{
   cursor: url('../res/icons/focus.png') 64 64,pointer;
 }
+.ai-attack{
+  background-color: red;
+}
+.cell-hit{
+  background-color: #7c5e5e;
+}
 .cell-miss{
   display: flex;
   justify-content: center;

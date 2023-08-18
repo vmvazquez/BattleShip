@@ -44,21 +44,39 @@ const removeAllCellClicks = () => {
 const cellClick = (e) => {
   let cell = e.target;
   console.log('about to hit a cell');
+  let img = document.createElement('img');
+  cell.removeEventListener('click', cellClick);
   let isValidHit = gameBoardManager.isPlayerAttackAHit(cell);
   if (isValidHit) {
     console.log('hit');
+    cell.classList.add('cell-hit');
   } else {
     console.log('miss');
+    cell.classList.add('cell-miss');
+    img.src = circle;
     gameStateManager.turn = (gameStateManager.turn + 1) % 2;
     let turnText = document.querySelector('.turn-text p');
     turnText.innerText = 'Opponent Turn';
+    // cpu move
+    let didHit = true;
+    console.log('===========================');
+    console.log('CPU TURN');
+    while (didHit) {
+      console.log('BEFORE');
+
+      console.log(gameStateManager.playerShipsLocation);
+      didHit = gameStateManager.handleCPUTurn(
+        gameStateManager.ai,
+        gameStateManager.playerShipsLocation
+      );
+      console.log('AFTER');
+
+      console.log(gameStateManager.playerShipsLocation);
+    }
+
+    turnText.innerText = 'Your Turn';
   }
 
-  let img = document.createElement('img');
-  img.src = circle;
-  cell.classList.add('cell-miss');
   cell.append(img);
-
-  cell.removeEventListener('click', cellClick);
 };
 export { removeDraggable };
