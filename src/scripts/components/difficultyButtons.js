@@ -39,7 +39,6 @@ const createDifficultyButtons = () => {
   mainContainer.classList.add('diff-buttons');
 
   playButton.addEventListener('click', () => {
-    gameStateManager.startGame();
     console.log('Game Board CPU');
     console.log(gameBoardManager.cpuShipLocations);
     let leftSide = document.querySelector('.select-aside');
@@ -49,11 +48,11 @@ const createDifficultyButtons = () => {
     newRightSide.classList.remove('right-side');
     newRightSide.classList.add('left-side');
 
-    newRightSide.addEventListener('mouseover', (e) => {
-      newRightSide.classList.add('attack');
+    newRightSide.firstChild.addEventListener('mouseover', (e) => {
+      newRightSide.firstChild.classList.add('attack');
     });
-    newRightSide.addEventListener('mouseleave', () => {
-      newRightSide.classList.remove('attack');
+    newRightSide.firstChild.addEventListener('mouseleave', () => {
+      newRightSide.firstChild.classList.remove('attack');
     });
     let rightSide = document.querySelector('.right-side');
     rightSide.removeChild(rightSide.lastChild);
@@ -63,6 +62,7 @@ const createDifficultyButtons = () => {
     removeDraggable();
     nameBoards();
     resizeAndCenterHorShipsOnField();
+    gameStateManager.startGame();
   });
   return mainContainer;
 };

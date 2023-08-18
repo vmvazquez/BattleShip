@@ -10,8 +10,7 @@ module.exports = class AI {
 
   getNextMove = () => {
     let gameState = this.getFinalMatrix();
-    console.log('board');
-    this.printBoard(gameState);
+
     // Setting previously hit cells to negative 1 so
     // the will no longer be picked again
     this.alreadyHitIndices.forEach((index) => {

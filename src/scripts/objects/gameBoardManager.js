@@ -5,6 +5,7 @@ const createGameBoardManager = () => {
 
   let { finalPositions: cpuShipLocations, directions: cpuDirections } =
     generateAIShipLocations();
+
   let firstPLayerShipLocations = [];
   let directionMap = new Map();
   directionMap.set(0, 'north');
