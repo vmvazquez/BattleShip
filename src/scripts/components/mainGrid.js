@@ -1,5 +1,5 @@
 import { gameBoardManager } from '../objects/gameBoardManager';
-import { draggedObject, getCellWidth } from './shipImage';
+import { draggedObject } from './shipImage';
 gameBoardManager;
 let currentHoveredCell = 0;
 const createGrid = () => {
@@ -7,12 +7,6 @@ const createGrid = () => {
 
   mainContainer.classList.add('main-grid');
 
-  mainContainer.addEventListener('mouseover', (e) => {
-    mainContainer.classList.add('attack');
-  });
-  mainContainer.addEventListener('mouseleave', () => {
-    mainContainer.classList.remove('attack');
-  });
   for (let i = 0; i < 100; i++) {
     let cell = document.createElement('div');
 
@@ -21,6 +15,7 @@ const createGrid = () => {
     cell.append(p);
     cell.addEventListener('dragenter', drawShipPlacementPreview);
 
+    cell.classList.add('open');
     mainContainer.append(cell);
   }
 

@@ -8,11 +8,22 @@ import {
 import { gameBoardManager } from './scripts/objects/gameBoardManager';
 import { shipImageArr, verticalImageArr } from './scripts/objects/shipArrays';
 import { createShipImage } from './scripts/components/shipImage';
+import { gameStateManager } from './scripts/objects/gameStateManager';
+import AI from './scripts/objects/ai';
+
 document.body.append(createStartUpPage());
+
+let ai = new AI();
+// let array = [0, 0, 2, 0, 0, 0, 0, 0, 0, 1];
+// console.log(ai.getShipPlacementsMatrixH(array, 4));
+
+let result = ai.getFinalMatrix();
+ai.printBoard(result);
+console.log(ai.getNextMove());
 // document.body.appendChild(createMovingBackground());
-document.addEventListener('click', (e) => {
-  console.log(e.target.getBoundingClientRect());
-});
+// document.addEventListener('click', (e) => {
+//   console.log(e.target.getBoundingClientRect());
+// });
 
 //TODO change the size of ship images based on grid
 window.addEventListener('resize', (e) => {

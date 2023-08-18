@@ -2,6 +2,7 @@ import { generateAIShipLocations } from '../aiLogic/generateShipPosition';
 import { nameBoards } from '../gameStart/nameBoards';
 import { removeDraggable } from '../gameStart/removeDraggable';
 import { gameBoardManager } from '../objects/gameBoardManager';
+import { gameStateManager } from '../objects/gameStateManager';
 import {
   resizeAndCenterHorShipsOnField,
   drawAllImagesOnBoardWithPositions,
@@ -19,15 +20,10 @@ const createDifficultyButtons = () => {
     let mainGrid = Array.from(document.querySelector('.main-grid').children);
     mainGrid.forEach((cell) => {
       cell.removeAttribute('class');
+      cell.classList.add('open');
     });
     let { finalPositions, directions } = generateAIShipLocations();
     drawAllImagesOnBoardWithPositions(finalPositions, directions);
-    //**Coloring auto assigned cells */
-    // finalPositions.forEach((positions, i) => {
-    //   positions.forEach((index) => {
-    //     mainGrid[index].classList.add(`ai-${i}`);
-    //   });
-    // });
   });
   resetButton.innerText = 'Reset';
 
@@ -43,12 +39,22 @@ const createDifficultyButtons = () => {
   mainContainer.classList.add('diff-buttons');
 
   playButton.addEventListener('click', () => {
+    gameStateManager.startGame();
+    console.log('Game Board CPU');
+    console.log(gameBoardManager.cpuShipLocations);
     let leftSide = document.querySelector('.select-aside');
     leftSide.style.visibility = 'hidden';
     mainContainer.style.visibility = 'hidden';
     let newRightSide = createRightSide();
     newRightSide.classList.remove('right-side');
     newRightSide.classList.add('left-side');
+
+    newRightSide.addEventListener('mouseover', (e) => {
+      newRightSide.classList.add('attack');
+    });
+    newRightSide.addEventListener('mouseleave', () => {
+      newRightSide.classList.remove('attack');
+    });
     let rightSide = document.querySelector('.right-side');
     rightSide.removeChild(rightSide.lastChild);
 

@@ -1,8 +1,17 @@
+import { gameStateManager } from '../objects/gameStateManager';
+
 const nameBoards = () => {
   let enemyLabel = nameCard("Enemy's");
   let yourLabel = nameCard("Your's");
 
-  let turn = nameCard('Your Turn');
+  let turn;
+
+  if (gameStateManager.turn == 0) {
+    turn = nameCard('Your Turn');
+  } else {
+    turn = nameCard('Enemy Turn');
+  }
+
   let mainContent = document.querySelector('.main-content');
 
   turn.classList.add('turn-text');

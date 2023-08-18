@@ -10,6 +10,7 @@ import { healthMap, shipImageArr, verticalImageArr } from './shipArrays';
  */
 const drawAllImagesOnBoardWithPositions = (positionsArray, directionArr) => {
   clearAllShips();
+  gameBoardManager.map.clear();
   let allCells = Array.from(document.querySelector('.main-grid').children);
 
   positionsArray.forEach((positions, i) => {
