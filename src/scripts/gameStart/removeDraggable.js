@@ -41,7 +41,7 @@ const removeAllCellClicks = () => {
     if (cell.children.length == 1) cell.removeEventListener('click', cellClick);
   });
 };
-const cellClick = (e) => {
+const cellClick = async (e) => {
   let cell = e.target;
   console.log('about to hit a cell');
   let img = document.createElement('img');
@@ -54,6 +54,7 @@ const cellClick = (e) => {
     console.log('miss');
     cell.classList.add('cell-miss');
     img.src = circle;
+    cell.append(img);
     gameStateManager.turn = (gameStateManager.turn + 1) % 2;
     let turnText = document.querySelector('.turn-text p');
     turnText.innerText = 'Opponent Turn';
@@ -62,6 +63,7 @@ const cellClick = (e) => {
     console.log('===========================');
     console.log('CPU TURN');
     while (didHit) {
+      await new Promise((r) => setTimeout(r, 1000));
       console.log('BEFORE');
 
       console.log(gameStateManager.playerShipsLocation);
@@ -76,7 +78,5 @@ const cellClick = (e) => {
 
     turnText.innerText = 'Your Turn';
   }
-
-  cell.append(img);
 };
 export { removeDraggable };
