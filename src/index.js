@@ -3,12 +3,8 @@ import { createStartUpPage } from './scripts/startUp/startUpContent';
 import {
   resizeImagesOnSideGrid,
   resizeAndCenterHorShipsOnField,
-  drawImageOnBoardWithPositions,
 } from './scripts/objects/imageHandler';
-import { gameBoardManager } from './scripts/objects/gameBoardManager';
-import { shipImageArr, verticalImageArr } from './scripts/objects/shipArrays';
-import { createShipImage } from './scripts/components/shipImage';
-import { gameStateManager } from './scripts/objects/gameStateManager';
+
 import AI from './scripts/objects/ai';
 
 document.body.append(createStartUpPage());

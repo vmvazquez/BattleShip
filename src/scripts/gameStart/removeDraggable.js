@@ -43,15 +43,14 @@ const removeAllCellClicks = () => {
 };
 const cellClick = async (e) => {
   let cell = e.target;
-  console.log('about to hit a cell');
+
   let img = document.createElement('img');
   cell.removeEventListener('click', cellClick);
   let isValidHit = gameBoardManager.isPlayerAttackAHit(cell);
   if (isValidHit) {
-    console.log('hit');
     cell.classList.add('cell-hit');
+    gameStateManager.enemyShipsHitByPlayer++;
   } else {
-    console.log('miss');
     cell.classList.add('cell-miss');
     img.src = circle;
     cell.append(img);
@@ -60,23 +59,21 @@ const cellClick = async (e) => {
     turnText.innerText = 'Opponent Turn';
     // cpu move
     let didHit = true;
-    console.log('===========================');
-    console.log('CPU TURN');
+
     while (didHit) {
       await new Promise((r) => setTimeout(r, 1000));
-      console.log('BEFORE');
-
-      console.log(gameStateManager.playerShipsLocation);
       didHit = gameStateManager.handleCPUTurn(
         gameStateManager.ai,
         gameStateManager.playerShipsLocation
       );
-      console.log('AFTER');
-
-      console.log(gameStateManager.playerShipsLocation);
+      if (didHit) gameStateManager.playerShipsHitByEnemy++;
     }
 
     turnText.innerText = 'Your Turn';
   }
+  let winner = gameStateManager.checkForWinner();
+  if (winner != 0) {
+    gameStateManager.endGame(winner);
+  }
 };
-export { removeDraggable };
+export { removeDraggable, removeAllCellClicks };

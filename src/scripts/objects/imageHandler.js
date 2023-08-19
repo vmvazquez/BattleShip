@@ -11,7 +11,9 @@ import { healthMap, shipImageArr, verticalImageArr } from './shipArrays';
 const drawAllImagesOnBoardWithPositions = (positionsArray, directionArr) => {
   clearAllShips();
   gameBoardManager.map.clear();
-  let allCells = Array.from(document.querySelector('.main-grid').children);
+  let allCells = Array.from(
+    document.querySelector('.right-side .main-grid').children
+  );
 
   positionsArray.forEach((positions, i) => {
     let imgSrc;
@@ -37,7 +39,7 @@ const drawAllImagesOnBoardWithPositions = (positionsArray, directionArr) => {
 };
 const clearAllShips = () => {
   let imageContainer = Array.from(
-    document.querySelectorAll('.grid-container img')
+    document.querySelectorAll('.right-side .grid-container img')
   );
 
   imageContainer.forEach((img) => {
@@ -50,7 +52,9 @@ const clearAllShips = () => {
  * @param {Element} imgElement The ship image element
  */
 const drawImageOnBoardWithPositions = (positions, imgElement, direction) => {
-  let cells = Array.from(document.querySelector('.main-grid').children);
+  let cells = Array.from(
+    document.querySelector('.right-side .main-grid').children
+  );
 
   let cellsWhereShipWillBe = [];
 
@@ -58,7 +62,7 @@ const drawImageOnBoardWithPositions = (positions, imgElement, direction) => {
     cellsWhereShipWillBe.push(cells[position]);
   });
 
-  let imageContainer = document.querySelector('.grid-container');
+  let imageContainer = document.querySelector('.right-side .grid-container');
   imageContainer.append(imgElement);
 
   imgElement.addEventListener('load', () => {
@@ -83,7 +87,7 @@ const drawImageOnBoardWithPositions = (positions, imgElement, direction) => {
   });
 };
 const resizeImagesOnSideGrid = () => {
-  let cell = document.querySelector('.main-grid').firstChild;
+  let cell = document.querySelector('.right-side .main-grid').firstChild;
 
   let shipCard = getShipCards();
 
@@ -114,7 +118,7 @@ const resizeAndCenterHorShipsOnField = () => {
   centerAllHorShipsOnField(ships);
 };
 const resizeHorizontalShipsOnField = (ships) => {
-  let cell = document.querySelector('.main-grid').firstChild;
+  let cell = document.querySelector('.right-side .main-grid').firstChild;
 
   ships.forEach((ship) => {
     let health = healthMap.get(ship.src);
@@ -171,7 +175,9 @@ const moveHorizontalImageOnField = (image, cells) => {
   image.style.setProperty('top', `${relativeTop}px`);
 };
 const getShipImagesOnMainGrid = () => {
-  return Array.from(document.querySelectorAll('.grid-container img'));
+  return Array.from(
+    document.querySelectorAll('.right-side .grid-container img')
+  );
 };
 const moveVerticalImageOnField = (image, cells) => {
   let { relativeLeft, relativeTop } = getShipNewLeftTopPositionV(cells, image);

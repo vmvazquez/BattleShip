@@ -1,15 +1,15 @@
 import { gameStateManager } from '../objects/gameStateManager';
 
 const nameBoards = () => {
-  let enemyLabel = nameCard("Enemy's");
-  let yourLabel = nameCard("Your's");
+  let enemyLabel = nameCard("Enemy's Board");
+  let yourLabel = nameCard('Your Board');
 
   let turn;
 
   if (gameStateManager.turn == 0) {
     turn = nameCard('Your Turn');
   } else {
-    turn = nameCard('Enemy Turn');
+    turn = nameCard("Enemy's Turn");
   }
 
   let mainContent = document.querySelector('.main-content');
