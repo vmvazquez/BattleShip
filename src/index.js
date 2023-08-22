@@ -13,9 +13,6 @@ let ai = new AI();
 // let array = [0, 0, 2, 0, 0, 0, 0, 0, 0, 1];
 // console.log(ai.getShipPlacementsMatrixH(array, 4));
 
-let result = ai.getFinalMatrix();
-ai.printBoard(result);
-console.log(ai.getNextMove());
 // document.body.appendChild(createMovingBackground());
 // document.addEventListener('click', (e) => {
 //   console.log(e.target.getBoundingClientRect());

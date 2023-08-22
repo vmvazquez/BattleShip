@@ -57,12 +57,10 @@ class gameStateManagerClass {
    */
   handleCPUTurn = () => {
     let aiAttack = this.ai.getNextMove();
-    console.log('AI ATTACK');
-    console.log(aiAttack);
+
     let result = null;
     let didHit = false;
     // TODO: FIND A BETTER PLACE FOR HTML CODE
-    console.log('adding colored class');
     let cells = Array.from(
       document.querySelector('.right-side .main-grid').children
     );

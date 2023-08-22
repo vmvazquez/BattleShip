@@ -19,6 +19,9 @@ const createGrid = () => {
     mainContainer.append(cell);
   }
 
+  mainContainer.addEventListener('change', () => {
+    console('added some things');
+  });
   return mainContainer;
 };
 
@@ -54,8 +57,6 @@ const drawShipPlacementPreview = (e) => {
   clearPreviews();
   // Handling classes for newly hovered elements
   eventTarget.classList.add('starting-cell');
-  //TODO this will only work if placing right to left
-  let rightToLeft = true;
 
   let cellArray = [];
 
@@ -115,13 +116,17 @@ const getAllLinkedCells = () => {
     i < draggedObject.health &&
     nextCellX <= startingX &&
     isValidCell(currentCell) &&
-    currentCell.previousSibling != null;
+    currentCell != null;
     i++
   ) {
     cellArray.push(currentCell);
+
     currentCell = currentCell.previousSibling;
-    nextCellX = currentCell.getBoundingClientRect().left;
+    if (currentCell != null) {
+      nextCellX = currentCell.getBoundingClientRect().left;
+    }
   }
+
   // if (cellArray.length > 1) {
   //   if (cellArray[0].previousSibling == cellArray[1]) {
   //     cellArray.reverse();
@@ -130,6 +135,7 @@ const getAllLinkedCells = () => {
   return cellArray;
 };
 const isValidCell = (cell) => {
+  if (cell == null) return false;
   if (cell.matches('.taken')) {
     if (gameBoardManager.map.has(draggedObject.img.src)) {
       let arr = gameBoardManager.map.get(draggedObject.img.src);

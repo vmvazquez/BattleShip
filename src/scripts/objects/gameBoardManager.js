@@ -31,8 +31,6 @@ const createGameBoardManager = () => {
       document.querySelector('.right-side .main-grid').children
     );
 
-    console.log('printing');
-    console.log(cells[0]);
     let cell = cells[attackIndex];
     if (cell.matches('.taken') && !cell.matches('.sunk')) {
       return true;
