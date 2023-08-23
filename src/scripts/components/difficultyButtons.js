@@ -8,6 +8,7 @@ import {
   drawAllImagesOnBoardWithPositions,
 } from '../objects/imageHandler';
 import { createRightSide } from '../startUp/rightSide';
+import { createShipGrid } from './shipGrid';
 const createDifficultyButtons = () => {
   let autoAssignButton = document.createElement('button');
   let resetButton = document.createElement('button');
@@ -28,43 +29,43 @@ const createDifficultyButtons = () => {
   resetButton.innerText = 'Reset';
 
   resetButton.addEventListener('click', () => {
-    let images = Array.from(document.querySelectorAll('.grid-container img'));
-    images.forEach((image) => {
-      image.classList.add(gameBoardManager.directionMap.get(1));
-    });
+    // let images = Array.from(document.querySelectorAll('.grid-container img'));
+    // images.forEach((image) => {
+    //   image.classList.add(gameBoardManager.directionMap.get(1));
+    // });
+    resetEventListener();
   });
   playButton.innerText = 'PLAY';
 
   mainContainer.append(autoAssignButton, resetButton, playButton);
   mainContainer.classList.add('diff-buttons');
 
-  playButton.addEventListener('click', () => {
-    console.log('Game Board CPU');
-    gameStateManager.startGame();
-    console.log(gameBoardManager.cpuShipLocations);
-    let leftSide = document.querySelector('.select-aside');
-    leftSide.style.visibility = 'hidden';
-    mainContainer.style.visibility = 'hidden';
-    let newRightSide = createRightSide();
-    newRightSide.classList.remove('right-side');
-    newRightSide.classList.add('left-side');
+  // playButton.addEventListener('click', () => {
 
-    newRightSide.firstChild.addEventListener('mouseover', (e) => {
-      newRightSide.firstChild.classList.add('attack');
-    });
-    newRightSide.firstChild.addEventListener('mouseleave', () => {
-      newRightSide.firstChild.classList.remove('attack');
-    });
-    let rightSide = document.querySelector('.right-side');
-    rightSide.removeChild(rightSide.lastChild);
-
-    leftSide.parentElement.append(newRightSide);
-    leftSide.parentElement.replaceChild(newRightSide, leftSide);
-    removeDraggable();
-    nameBoards();
-    resizeAndCenterHorShipsOnField();
-  });
+  // });
   return mainContainer;
 };
 
+const resetEventListener = () => {
+  let oldShipGrid = document.querySelector('.ship-info');
+  let newShipGrid = createShipGrid();
+
+  // Replacing old Grid
+  oldShipGrid.parentElement.replaceChild(newShipGrid, oldShipGrid);
+
+  // Removing Images on main field
+  let images = Array.from(document.querySelectorAll('.grid-container img'));
+  images.forEach((img) => {
+    img.parentElement.removeChild(img);
+  });
+
+  // Clearing css classes from main grid cells
+  let cells = Array.from(document.querySelector('.main-grid').children);
+  cells.forEach((cell) => {
+    cell.removeAttribute('class');
+    cell.classList.add('open');
+  });
+  // resetting player maps
+  gameBoardManager.map.clear();
+};
 export { createDifficultyButtons };

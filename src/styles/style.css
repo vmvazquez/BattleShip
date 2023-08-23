@@ -83,7 +83,8 @@ padding-top: 4rem;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-
+/* Play button & single player button */
+.ready-to-play,
 .startup-aside-left button:nth-child(2){
   background-color: var(--green-color);
 }
@@ -91,7 +92,7 @@ padding-top: 4rem;
 .startup-aside-left button:nth-child(3){
   background-color: var(--light-red-color);
 }
-
+.ready-to-play,
 .startup-aside-left button:nth-child(2):hover{
   background-color: var(--green-hover-color);
 }
@@ -99,6 +100,8 @@ padding-top: 4rem;
 .startup-aside-left button:nth-child(3):hover {
   background-color: var(--light-red-hover-color)
 }
+
+
 /***************************  End of Start Up Left Side  ***********************************/
 /***************************  Start of Difficulty Page  ***********************************/
 .difficulty-aside p{
@@ -123,6 +126,10 @@ background-color: var(--light-blue-color);
   grid-template-columns: repeat(3,1fr);
   width: var(--grid-width);
 }
+.diff-buttons button:first-child:hover{
+  background-color: #f6f6f674;
+}
+
 /***************************  End of Difficulty Page  ***********************************/
 /***************************  Start of Ship Selection Page  ***********************************/
 .select-aside{

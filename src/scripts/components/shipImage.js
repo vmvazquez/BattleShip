@@ -36,6 +36,9 @@ const createShipImage = (health, shipImgSrc, hor = true) => {
     let hoveredCell = document.querySelector('.hovered-cell');
     let linkedCells;
     if (hoveredCell) {
+      //Removing card on side grid
+
+      removeShipCard(boatImage.src);
       if (boatImage.matches('.hor')) {
         linkedCells = getAllLinkedCells().map((cell) => {
           cell.classList.add('taken');
@@ -84,9 +87,18 @@ const createShipImage = (health, shipImgSrc, hor = true) => {
   return boatImage;
 };
 
+const removeShipCard = (imgSrc) => {
+  let cards = Array.from(document.querySelectorAll('.ship-card'));
+
+  cards.forEach((card) => {
+    if (card.firstChild.nextSibling.src == imgSrc) {
+      card.parentElement.removeChild(card);
+    }
+  });
+};
 const getCellWidth = () => {
   let gridContainer = document.querySelector('.main-grid').firstChild;
   return gridContainer.getBoundingClientRect().width;
 };
 
-export { createShipImage, draggedObject, getCellWidth };
+export { createShipImage, draggedObject, getCellWidth, removeShipCard };

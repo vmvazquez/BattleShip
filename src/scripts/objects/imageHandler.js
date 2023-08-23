@@ -1,7 +1,6 @@
-import { createShipImage } from '../components/shipImage';
+import { createShipImage, removeShipCard } from '../components/shipImage';
 import { gameBoardManager } from './gameBoardManager';
 import { healthMap, shipImageArr, verticalImageArr } from './shipArrays';
-
 /**
  *
  * @param {Array} positionsArray An array of arrays with positions [[41,42,43],[1,11,21]]
@@ -35,6 +34,15 @@ const drawAllImagesOnBoardWithPositions = (positionsArray, directionArr) => {
     positions.forEach((position) => {
       allCells.at(position).classList.add('taken');
     });
+  });
+
+  // Removing all ships
+  removeShipsOnSideGrid();
+};
+const removeShipsOnSideGrid = () => {
+  let cards = Array.from(document.querySelectorAll('.ship-card'));
+  cards.forEach((card) => {
+    card.parentElement.removeChild(card);
   });
 };
 const clearAllShips = () => {

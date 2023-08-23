@@ -19,9 +19,6 @@ const createGrid = () => {
     mainContainer.append(cell);
   }
 
-  mainContainer.addEventListener('change', () => {
-    console('added some things');
-  });
   return mainContainer;
 };
 
