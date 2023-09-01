@@ -8,7 +8,7 @@ const mainGridObserverCallback = (mutationList, observer) => {
   for (const mutation of mutationList) {
     let playButton = document.querySelector('.diff-buttons');
 
-    if (mutation.target.childNodes.length == 7 && playButton) {
+    if (mutation.target.childNodes.length == 8 && playButton) {
       playButton.lastChild.classList.add('ready-to-play');
       playButton.lastChild.addEventListener('click', playButtonEvent);
     } else if (playButton) {

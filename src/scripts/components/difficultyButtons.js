@@ -7,6 +7,7 @@ import {
   resizeAndCenterHorShipsOnField,
   drawAllImagesOnBoardWithPositions,
 } from '../objects/imageHandler';
+import { shipImageArr } from '../objects/shipArrays';
 import { createRightSide } from '../startUp/rightSide';
 import { createShipGrid } from './shipGrid';
 const createDifficultyButtons = () => {
@@ -24,6 +25,9 @@ const createDifficultyButtons = () => {
       cell.classList.add('open');
     });
     let { finalPositions, directions } = generateAIShipLocations();
+
+    console.log('New Map');
+    console.log(gameBoardManager.cpuObjectMap);
     drawAllImagesOnBoardWithPositions(finalPositions, directions);
   });
   resetButton.innerText = 'Reset';

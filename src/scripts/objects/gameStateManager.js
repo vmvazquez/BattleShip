@@ -2,6 +2,8 @@ import { removeAllCellClicks } from '../gameStart/removeDraggable';
 import AI from './ai';
 import { gameBoardManager } from './gameBoardManager';
 import { healthCountArr } from './shipArrays';
+import defeatSound from '../../res/sounds/defeat.mp3';
+import victorySound from '../../res/sounds/victory.mp3';
 class gameStateManagerClass {
   constructor() {
     this.turn = 0;
@@ -34,12 +36,18 @@ class gameStateManagerClass {
     }
   };
   endGame = (winner) => {
+    console.log('The winner is ');
+    console.log(winner);
     let text = document.querySelector('.turn-text p');
 
     // Changing to winner title
     if (winner == 1) {
       text.innerText = '~~YOU ARE THE KING OF THE SEA~~ ';
+      let victoryMusic = new Audio(victorySound);
+      victoryMusic.play();
     } else {
+      let defeatMusic = new Audio(defeatSound);
+      defeatMusic.play();
       text.innerText = 'GET REKT BY A CPU';
     }
 
@@ -47,6 +55,7 @@ class gameStateManagerClass {
     removeAllCellClicks();
   };
   startGame = () => {
+    console.log(gameBoardManager.cpuShipLocations);
     this.playerShipsLocation = gameBoardManager.convertPlayerMap(
       gameBoardManager.map
     );

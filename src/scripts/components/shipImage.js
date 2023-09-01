@@ -1,4 +1,3 @@
-import { createDraggedObject } from '../objects/draggedObject';
 import { gameBoardManager } from '../objects/gameBoardManager';
 import { drawImageOnBoardWithPositions } from '../objects/imageHandler';
 import { healthMap } from '../objects/shipArrays';

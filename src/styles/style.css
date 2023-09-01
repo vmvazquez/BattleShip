@@ -244,8 +244,11 @@ margin-left: 5rem;
 
 /***************************  End of Ship Card  ***********************************/
 /***************************  Start of Main Grid  ***********************************/
+.no-click{
+  pointer-events: none;
+}
 .attack{
-  cursor: url('../res/icons/focus.png') 64 64,pointer;
+  cursor: url('../res/icons/focus.png') 25 25,pointer;
 }
 .ai-attack{
   background-color: red;
@@ -293,13 +296,14 @@ margin-left: 5rem;
   height: 100%;
   grid-template-columns: repeat(10,1fr);
   grid-template-rows: repeat(10,1fr);
-  background-image: url('../res/water.jpg');
+ 
   border-radius: var(--field-border-radius);
-  
+  top: 0;
 }
 
 .main-grid div{
   border: 1px solid rgba(0, 0, 0, 0.178);
+  z-index: 5;
 }
 .main-grid div:nth-child(1){
   border-top-left-radius: var(--field-border-radius);
@@ -342,6 +346,31 @@ div .ai-5 {
   background-color: #caec08;
 }
 /***************************  End of Main Grid  ***********************************/
+
+
+/***************************  Start of Sliding Window  ***********************************/
+.sliding-window{
+  width: 3960px;
+  height: 5076px;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url('../res/final-water.jpg') ;
+  animation: slide 60s linear infinite;
+  background-size: 2000px 1600px;
+  background-repeat: repeat-x;
+}
+
+@keyframes slide {
+  from{
+    transform: translate(0,0);
+  }
+  to{
+    transform: translate(-1000px,0);
+  }
+}
+/***************************  End of Sliding Window  ***********************************/
 /***************************  Start of Background Image  ***********************************/
 .background-box{
   width: 90%;

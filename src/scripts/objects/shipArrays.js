@@ -12,7 +12,8 @@ import verticalMediumShip2 from '../../res/ships//vertical-md-ship-2.png';
 import verticalSmMediumShip from '../../res/ships/vertical-sm-md-ship.png';
 import verticalSmShip from '../../res/ships/vertical-sm-ship.png';
 import verticalSub from '../../res/ships/vertical-sub.png';
-
+import carrier from '../../res/ships/carrier.png';
+import submarine from '../../res/ships/submarine.png';
 let verticalImageArr = [
   verticalLgShip,
   verticalMediumShip1,

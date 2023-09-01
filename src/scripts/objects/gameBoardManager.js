@@ -3,9 +3,18 @@ import { generateAIShipLocations } from '../aiLogic/generateShipPosition';
 const createGameBoardManager = () => {
   let map = new Map();
 
+  let cpuObjectMap = new Map();
   let { finalPositions: cpuShipLocations, directions: cpuDirections } =
     generateAIShipLocations();
 
+  let copyArray = JSON.parse(JSON.stringify(cpuShipLocations));
+  copyArray.forEach((indices, i) => {
+    cpuObjectMap.set(i, {
+      indices,
+      health: indices.length,
+      hpLeft: indices.length,
+    });
+  });
   let firstPLayerShipLocations = [];
   let directionMap = new Map();
   directionMap.set(0, 'north');
@@ -37,6 +46,7 @@ const createGameBoardManager = () => {
     }
     return false;
   };
+
   const convertPlayerMap = (map) => {
     let newMap = new Map();
     let cells = Array.from(
@@ -64,7 +74,12 @@ const createGameBoardManager = () => {
    */
   const handleHit = (objectMap, hitIndex) => {
     let returnValue = null;
+    console.log('Objecty map');
+    console.log(objectMap);
     objectMap.forEach((value, key) => {
+      console.log('hit index value');
+      console.log(value.indices);
+      console.log(hitIndex);
       if (value.indices.includes(hitIndex)) {
         value.hpLeft--;
         if (value.hpLeft == 0) {
@@ -116,6 +131,7 @@ const createGameBoardManager = () => {
     handleHitHTML,
     isCpuAttackAHit,
     handleMissHTML,
+    cpuObjectMap,
   };
 };
 
