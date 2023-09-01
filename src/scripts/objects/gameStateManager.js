@@ -1,9 +1,10 @@
 import { removeAllCellClicks } from '../gameStart/removeDraggable';
 import AI from './ai';
-import { gameBoardManager } from './gameBoardManagerold';
+import { gameBoardManager } from './gameBoardManager';
 import { healthCountArr } from './shipArrays';
 import defeatSound from '../../res/sounds/defeat.mp3';
 import victorySound from '../../res/sounds/victory.mp3';
+import { createPlayAgain } from '../components/playAgainModal';
 class gameStateManagerClass {
   constructor() {
     this.turn = 0;
@@ -45,8 +46,6 @@ class gameStateManagerClass {
     }
   };
   endGame = (winner) => {
-    console.log('The winner is ');
-    console.log(winner);
     let text = document.querySelector('.turn-text p');
 
     // Changing to winner title

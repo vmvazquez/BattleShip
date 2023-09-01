@@ -1,6 +1,5 @@
-import { gameBoardManager } from '../objects/gameBoardManagerold';
+import { gameBoardManager } from '../objects/gameBoardManager';
 import { draggedObject } from './shipImage';
-gameBoardManager;
 let currentHoveredCell = 0;
 const createGrid = () => {
   let mainContainer = document.createElement('div');

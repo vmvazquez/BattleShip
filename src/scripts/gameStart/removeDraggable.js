@@ -1,6 +1,6 @@
 import circle from '../../res/icons/circle-small-custom.png';
 import { drawShipPlacementPreview } from '../components/mainGrid';
-import { gameBoardManager } from '../objects/gameBoardManagerold';
+import { gameBoardManager } from '../objects/gameBoardManager';
 import { gameStateManager } from '../objects/gameStateManager';
 import missSoundEffect from '../../res/sounds/shotMissed.mp3';
 import singleHit from '../../res/sounds/singleHit.wav';
@@ -61,7 +61,6 @@ const cellClick = async (e) => {
       gameBoardManager.cpuObjectMap,
       hitIndex
     );
-    console.log(gameBoardManager.cpuObjectMap);
     if (returnValue) {
       let shipSunkSound = new Audio(shipSunk);
       shipSunkSound.play();

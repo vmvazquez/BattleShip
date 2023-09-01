@@ -1,14 +1,6 @@
 import { generateAIShipLocations } from '../aiLogic/generateShipPosition';
-import { nameBoards } from '../gameStart/nameBoards';
-import { removeDraggable } from '../gameStart/removeDraggable';
-import { gameBoardManager } from '../objects/gameBoardManagerold';
-import { gameStateManager } from '../objects/gameStateManager';
-import {
-  resizeAndCenterHorShipsOnField,
-  drawAllImagesOnBoardWithPositions,
-} from '../objects/imageHandler';
-import { shipImageArr } from '../objects/shipArrays';
-import { createRightSide } from '../startUp/rightSide';
+import { gameBoardManager } from '../objects/gameBoardManager';
+import { drawAllImagesOnBoardWithPositions } from '../objects/imageHandler';
 import { createShipGrid } from './shipGrid';
 const createDifficultyButtons = () => {
   let autoAssignButton = document.createElement('button');
@@ -26,8 +18,6 @@ const createDifficultyButtons = () => {
     });
     let { finalPositions, directions } = generateAIShipLocations();
 
-    console.log('New Map');
-    console.log(gameBoardManager.cpuObjectMap);
     drawAllImagesOnBoardWithPositions(finalPositions, directions);
   });
   resetButton.innerText = 'Reset';
