@@ -1,4 +1,4 @@
-import { gameBoardManager } from '../objects/gameBoardManager';
+import { gameBoardManager } from '../objects/gameBoardManagerold';
 import { draggedObject } from './shipImage';
 gameBoardManager;
 let currentHoveredCell = 0;

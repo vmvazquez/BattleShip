@@ -411,3 +411,48 @@ div .ai-5 {
 
 
 
+/***************************  Start of Modal Logic  ***********************************/
+.backdrop{
+  background-color: rgba(0, 0, 0, 0.422);
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.play-again-modal{
+  display: grid;
+  border-radius: 2rem;
+  background-color: rgb(240, 240, 240);
+  font-size: 6rem;
+  padding: 4rem 9rem 6rem 9rem;
+}
+
+.play-again-modal > div{
+  display: flex;
+  justify-content: space-evenly;
+}
+.play-again-modal p{
+  margin-top: 1rem;
+}
+.play-again-modal button{
+  font-size: 3rem;
+  border-radius: 1.5rem;
+  padding: .5rem 4rem;
+  border: 1px solid rgba(0, 0, 0, 0.273);
+}
+.play-again-modal button:nth-child(1){
+  background-color: var(--green-color);
+}
+.play-again-modal button:nth-child(1):hover {
+  background-color: var(--green-hover-color);
+}
+.play-again-modal button:nth-child(2) {
+  background-color: var(--light-red-color);
+}
+.play-again-modal button:nth-child(2):hover {
+  background-color: var(--light-red-hover-color);
+}
+/***************************  End of Modal Logic  ***********************************/

@@ -1,6 +1,6 @@
 import { removeAllCellClicks } from '../gameStart/removeDraggable';
 import AI from './ai';
-import { gameBoardManager } from './gameBoardManager';
+import { gameBoardManager } from './gameBoardManagerold';
 import { healthCountArr } from './shipArrays';
 import defeatSound from '../../res/sounds/defeat.mp3';
 import victorySound from '../../res/sounds/victory.mp3';
@@ -14,6 +14,15 @@ class gameStateManagerClass {
     this.ai = new AI();
     this.playerShipsLocation;
   }
+  reset = () => {
+    this.turn = 0;
+    this.enemyShipsHitByPlayer = 0;
+    this.playerShipsHitByEnemy = 0;
+    this.thisPlayerShipMap = new Map();
+    this.opponentShipMap = new Map();
+    this.ai = new AI();
+    this.playerShipsLocation;
+  };
   /**
    * Checks to see if there is a winner by seeing if a player has hit
    * the total amount of ship cells available on the field
@@ -53,6 +62,7 @@ class gameStateManagerClass {
 
     // Making cells unclickable
     removeAllCellClicks();
+    document.body.append(createPlayAgain());
   };
   startGame = () => {
     console.log(gameBoardManager.cpuShipLocations);

@@ -1,5 +1,5 @@
 import { createShipImage, removeShipCard } from '../components/shipImage';
-import { gameBoardManager } from './gameBoardManager';
+import { gameBoardManager } from './gameBoardManagerold';
 import { healthMap, shipImageArr, verticalImageArr } from './shipArrays';
 /**
  *

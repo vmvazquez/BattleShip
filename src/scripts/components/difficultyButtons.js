@@ -1,7 +1,7 @@
 import { generateAIShipLocations } from '../aiLogic/generateShipPosition';
 import { nameBoards } from '../gameStart/nameBoards';
 import { removeDraggable } from '../gameStart/removeDraggable';
-import { gameBoardManager } from '../objects/gameBoardManager';
+import { gameBoardManager } from '../objects/gameBoardManagerold';
 import { gameStateManager } from '../objects/gameStateManager';
 import {
   resizeAndCenterHorShipsOnField,

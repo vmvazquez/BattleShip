@@ -1,4 +1,4 @@
-import { gameBoardManager } from '../objects/gameBoardManager';
+import { gameBoardManager } from '../objects/gameBoardManagerold';
 import { drawImageOnBoardWithPositions } from '../objects/imageHandler';
 import { healthMap } from '../objects/shipArrays';
 import {
