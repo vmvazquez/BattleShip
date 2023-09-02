@@ -62,6 +62,8 @@ class gameStateManagerClass {
     // Making cells unclickable
     removeAllCellClicks();
     document.body.append(createPlayAgain());
+    gameBoardManager.reset();
+    gameStateManager.reset();
   };
   startGame = () => {
     console.log(gameBoardManager.cpuShipLocations);

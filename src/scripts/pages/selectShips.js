@@ -4,7 +4,7 @@ import { backArrowEvent } from '../eventMethods/backArrow';
 import { createShipGrid } from '../components/shipGrid';
 import { createColor } from '../components/colorSection';
 import { createDifficultyButtons } from '../components/difficultyButtons';
-createDifficultyButtons;
+
 const createShipPage = () => {
   let mainContainer = document.createElement('aside');
   let pageTitle = document.createElement('h1');
