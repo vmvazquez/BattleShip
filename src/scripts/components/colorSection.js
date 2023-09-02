@@ -12,7 +12,7 @@ const createColor = () => {
 
   let title = document.createElement('p');
 
-  title.innerText = 'Select Color';
+  title.innerText = 'Select Color (TBA)';
   let colors = [
     darkBlue,
     brown,

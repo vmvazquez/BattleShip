@@ -13,11 +13,10 @@ const createDifficultyPage = () => {
   let diffDesc = document.createElement('p');
 
   arrow.src = backArrow;
-  diffDesc.innerText =
-    'Some basic gameplay design to tell you some basic information about the difficulty';
+  diffDesc.innerText = '';
   pageTitle.innerText = 'Difficulty';
   normalButton.innerText = 'Normal';
-  challengeButton.innerText = 'Challenge';
+  challengeButton.innerText = 'Challenge (TBA)';
 
   arrow.addEventListener('click', (e) => {
     backArrowEvent(e, createLeftSide);

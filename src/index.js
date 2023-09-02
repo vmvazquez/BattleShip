@@ -7,6 +7,7 @@ import {
 import { createPlayAgain } from './scripts/components/playAgainModal';
 import { audioManager } from './scripts/objects/audioManager';
 
+audioManager.backgroundSound.volume = 0.4;
 document.body.append(createStartUpPage());
 
 window.addEventListener('resize', (e) => {

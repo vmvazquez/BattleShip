@@ -10,7 +10,7 @@ const createLeftSide = () => {
 
   gameTitle.innerText = 'Battle Ships';
   soloButton.innerText = 'Single Player';
-  multiButton.innerText = 'Battle a Friend';
+  multiButton.innerText = 'Battle a Friend (TBA)';
 
   soloButton.addEventListener('click', singlePlayerButtonEvent);
   mainContainer.classList.add('startup-aside-left');
