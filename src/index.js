@@ -5,6 +5,7 @@ import {
   resizeAndCenterHorShipsOnField,
 } from './scripts/objects/imageHandler';
 import { createPlayAgain } from './scripts/components/playAgainModal';
+import { audioManager } from './scripts/objects/audioManager';
 
 document.body.append(createStartUpPage());
 

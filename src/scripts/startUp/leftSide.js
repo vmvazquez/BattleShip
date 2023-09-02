@@ -1,3 +1,4 @@
+import { audioManager } from '../objects/audioManager';
 import { createDifficultyPage } from '../pages/difficulty';
 
 const createLeftSide = () => {
@@ -19,6 +20,7 @@ const createLeftSide = () => {
 };
 
 const singlePlayerButtonEvent = () => {
+  audioManager.playClickEffect();
   let startUpContent = document.querySelector('.startup-aside-left');
   let parent = startUpContent.parentElement;
 

@@ -1,5 +1,6 @@
 import { nameBoards } from '../gameStart/nameBoards';
 import { removeDraggable } from '../gameStart/removeDraggable';
+import { audioManager } from '../objects/audioManager';
 import { gameStateManager } from '../objects/gameStateManager';
 import { resizeAndCenterHorShipsOnField } from '../objects/imageHandler';
 import { createRightSide } from '../startUp/rightSide';
@@ -19,6 +20,7 @@ const mainGridObserverCallback = (mutationList, observer) => {
 };
 
 const playButtonEvent = () => {
+  audioManager.playStartButtonEffect();
   let buttonsParent = document.querySelector('.diff-buttons');
   gameStateManager.startGame();
   let leftSide = document.querySelector('.select-aside');

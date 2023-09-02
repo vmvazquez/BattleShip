@@ -1,4 +1,5 @@
 import { generateAIShipLocations } from '../aiLogic/generateShipPosition';
+import { audioManager } from '../objects/audioManager';
 import { gameBoardManager } from '../objects/gameBoardManager';
 import { drawAllImagesOnBoardWithPositions } from '../objects/imageHandler';
 import { createShipGrid } from './shipGrid';
@@ -11,6 +12,7 @@ const createDifficultyButtons = () => {
   autoAssignButton.innerText = 'Auto Assign';
 
   autoAssignButton.addEventListener('click', () => {
+    audioManager.playAutoAssignEffect();
     let mainGrid = Array.from(document.querySelector('.main-grid').children);
     mainGrid.forEach((cell) => {
       cell.removeAttribute('class');
@@ -23,10 +25,6 @@ const createDifficultyButtons = () => {
   resetButton.innerText = 'Reset';
 
   resetButton.addEventListener('click', () => {
-    // let images = Array.from(document.querySelectorAll('.grid-container img'));
-    // images.forEach((image) => {
-    //   image.classList.add(gameBoardManager.directionMap.get(1));
-    // });
     resetEventListener();
   });
   playButton.innerText = 'PLAY';

@@ -2,6 +2,7 @@ import backArrow from '../../res/icons/back-arrow.png';
 import { createLeftSide } from '../startUp/leftSide';
 import { backArrowEvent } from '../eventMethods/backArrow';
 import { createShipPage } from './selectShips';
+import { audioManager } from '../objects/audioManager';
 const createDifficultyPage = () => {
   let mainContainer = document.createElement('aside');
   let pageTitle = document.createElement('h1');
@@ -30,6 +31,7 @@ const createDifficultyPage = () => {
   );
 
   normalButton.addEventListener('click', (e) => {
+    audioManager.playClickEffect();
     backArrowEvent(e, createShipPage);
   });
   mainContainer.classList.add('difficulty-aside');

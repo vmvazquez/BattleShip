@@ -1,10 +1,10 @@
 import { removeAllCellClicks } from '../gameStart/removeDraggable';
 import AI from './ai';
 import { gameBoardManager } from './gameBoardManager';
-import { healthCountArr } from './shipArrays';
-import defeatSound from '../../res/sounds/defeat.mp3';
-import victorySound from '../../res/sounds/victory.mp3';
 import { createPlayAgain } from '../components/playAgainModal';
+import { audioManager } from './audioManager';
+import { healthCountArr } from './shipArrays';
+
 class gameStateManagerClass {
   constructor() {
     this.turn = 0;
@@ -51,11 +51,10 @@ class gameStateManagerClass {
     // Changing to winner title
     if (winner == 1) {
       text.innerText = '~~YOU ARE THE KING OF THE SEA~~ ';
-      let victoryMusic = new Audio(victorySound);
-      victoryMusic.play();
+
+      audioManager.playVictoryEffect();
     } else {
-      let defeatMusic = new Audio(defeatSound);
-      defeatMusic.play();
+      audioManager.playDefeatEffect();
       text.innerText = 'GET REKT BY A CPU';
     }
 

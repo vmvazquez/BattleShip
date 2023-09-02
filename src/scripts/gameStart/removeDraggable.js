@@ -5,6 +5,7 @@ import { gameStateManager } from '../objects/gameStateManager';
 import missSoundEffect from '../../res/sounds/shotMissed.mp3';
 import singleHit from '../../res/sounds/singleHit.wav';
 import shipSunk from '../../res/sounds/shipSunk.wav';
+import { audioManager } from '../objects/audioManager';
 const removeDraggable = () => {
   removeDraggableFromImages();
   removeDragEnterFromCells();
@@ -62,17 +63,16 @@ const cellClick = async (e) => {
       hitIndex
     );
     if (returnValue) {
-      let shipSunkSound = new Audio(shipSunk);
-      shipSunkSound.play();
+      audioManager.playShipSunkEffect();
+
       turnText.innerText = 'You Sunk A Ship';
     } else {
-      let singleHitSound = new Audio(singleHit);
-      singleHitSound.play();
+      audioManager.playShipHitEffect();
+
       turnText.innerText = 'You Hit A Ship';
     }
   } else {
-    let missSound = new Audio(missSoundEffect);
-    missSound.play();
+    audioManager.playMissedEffect();
     let leftGrid = document.querySelector('.left-side .main-grid');
     leftGrid.classList.add('no-click');
 

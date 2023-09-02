@@ -28,7 +28,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      favicon: './src/res/icons/cruise.png',
+      favicon: './src/res/icons/warship.png',
     }),
   ],
 };
