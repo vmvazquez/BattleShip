@@ -8,7 +8,9 @@
   --light-red-hover-color: #f47650;
   --light-blue-color: rgb(179, 212, 221);
   --field-border-radius: 50px;
-  --grid-width:80%
+  --grid-width:80%;
+  --ai-hit-cell :#554c4c;
+   --player-hit-cell: rgba(241, 20, 20, 0.904)
 }
 @font-face {
   font-family: "IM Fell English SC";
@@ -251,10 +253,10 @@ margin-left: 5rem;
   cursor: url('../res/icons/focus.png') 25 25,pointer;
 }
 .ai-attack{
-  background-color: red;
+  background-color: var(--player-hit-cell);
 }
 .cell-hit{
-  background-color: #7c5e5e;
+  background-color: var(--ai-hit-cell)
 }
 .cell-miss{
   display: flex;
